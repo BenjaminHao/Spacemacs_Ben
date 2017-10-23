@@ -87,6 +87,7 @@ values."
      racket
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode)
+     Benjamin
     )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -182,9 +183,9 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(jazz
                          spacemacs-light
-                         jazz
+                         spacemacs-dark
                          gruvbox)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -365,6 +366,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq warning-minimum-level :error)
   ;; hack for remove purpose mode
   (setq purpose-mode nil)
+  ;; (setq exec-path-from-shell-arguments '("-i"))
+  (setq exec-path-from-shell-check-startup-files nil)
   )
 
 (defun dotspacemacs/user-config ()

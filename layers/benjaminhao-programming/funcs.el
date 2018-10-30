@@ -1,14 +1,14 @@
-;;; funcs.el --- Benjamin Layer packages File for Spacemacs
+;;; funcs.el --- BenjaminHao Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2016 Benjamin 
+;; Copyright (c) 2016-2019  BenjaminHao
 ;;
-;; Author: Benjamin <haomingkai@gmail.com>
+;; Author: BenjaminHao <haomingkai@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
 
-(defun Benjamin/comment-box (b e)
+(defun benjaminhao/comment-box (b e)
   "Draw a box comment around the region but arrange for the region
 to extend to at least the fill column. Place the point after the
 comment box."
@@ -24,7 +24,7 @@ comment box."
 
 
 ;; "http://stackoverflow.com/questions/2242572/emacs-todo-indicator-at-left-side"
-(defun Benjamin/annotate-todo ()
+(defun benjaminhao/annotate-todo ()
   "put fringe marker on TODO: lines in the curent buffer"
   (interactive)
   (save-excursion
@@ -36,14 +36,14 @@ comment box."
 
 
 ;;js2-mode enhancement
-(defun Benjamin/js2-which-function ()
+(defun benjaminhao/js2-which-function ()
   ;; clean the imenu cache
   ;; @see http://stackoverflow.com/questions/13426564/how-to-force-a-rescan-in-imenu-by-a-function
   (setq imenu--index-alist nil)
   (which-function-mode t)
   (which-function))
 
-(defun Benjamin/run-current-file ()
+(defun benjaminhao/run-current-file ()
   "Execute the current file.
 For example, if the current buffer is the file x.py, then it'll call 「python x.py」 in a shell.
 The file can be emacs lisp, php, perl, python, ruby, javascript, bash, ocaml, Visual Basic.
@@ -86,7 +86,7 @@ version 2015-08-21"
       (if ξprog-name
           (progn
             (message "Running…")
-            (async-shell-command ξcmd-str "*Benjamin/run-current-file output*"))
+            (async-shell-command ξcmd-str "*benjaminhao/run-current-file output*"))
         (message "No recognized program file suffix for this file.")))))
 
 
@@ -116,7 +116,7 @@ version 2015-08-21"
 
   (setq indent-tabs-mode nil))
 
-(defun Benjamin/load-yasnippet ()
+(defun benjaminhao/load-yasnippet ()
   (interactive)
   (unless yas-global-mode
     (progn
@@ -152,8 +152,8 @@ version 2015-08-21"
     (setq imenu-create-index-function 'js2-imenu-make-index)
 
     (setq mode-name "JS2")
-    (define-key js2-mode-map   (kbd "s-.") 'company-tern)
-    (spacemacs/toggle-syntax-checking-on)
+
+    ;; (spacemacs/toggle-syntax-checking-on)
     (setq forward-sexp-function nil)
     (set (make-local-variable 'semantic-mode) nil)))
 
@@ -249,7 +249,7 @@ version 2015-08-21"
 
 (defun my-setup-develop-environment ()
   (interactive)
-  (when (my-project-name-contains-substring "benjamin")
+  (when (my-project-name-contains-substring "guanghui")
     (cond
      ((my-project-name-contains-substring "cocos2d-x")
       ;; C++ project don't need html tags

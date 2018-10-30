@@ -1,14 +1,14 @@
 
-;;; funcs.el --- Benjamin Layer packages File for Spacemacs
+;;; funcs.el --- BenjaminHao Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2016 Benjamin
+;; Copyright (c) 2016-2019 BenjaminHao
 ;;
-;; Author: Benjamin <haomingkai@gmail.com>
+;; Author: BenjaminHao <haomingkai@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(defun Benjamin/update-persp-name ()
+(defun benjaminhao/update-persp-name ()
   (when (bound-and-true-p persp-mode)
     ;; There are multiple implementations of
     ;; persp-mode with different APIs

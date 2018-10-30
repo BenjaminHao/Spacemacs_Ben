@@ -1,8 +1,8 @@
-;;; config.el --- Benjamin Layer packages File for Spacemacs
+;;; config.el --- BenjaminHao Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2014-2016 Benjamin
+;; Copyright (c) 2016-2019 BenjaminHao
 ;;
-;; Author: Benjamin <haomingkai@gmail.com>
+;; Author: BenjaminHao <haomingkai@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -24,6 +24,9 @@
 
 (global-prettify-symbols-mode 1)
 (setq-default fill-column 80)
+
+;; prevent dired window press o to split into three column
+(setq-default split-width-threshold 200)
 
 (setq recenter-positions '(top middle bottom))
 ;; delete the selection with a key press
@@ -94,12 +97,12 @@
             kill-buffer-query-functions))
 
 ;; cleanup recent files
-(defun Benjamin/cleanup-recentf ()
+(defun benjaminhao/cleanup-recentf ()
   (progn
     (and (fboundp 'recentf-cleanup)
          (recentf-cleanup))))
 
-(add-hook 'kill-emacs-hook #'Benjamin/cleanup-recentf)
+(add-hook 'kill-emacs-hook #'benjaminhao/cleanup-recentf)
 
 ;; change evil initial mode state
 (menu-bar-mode t)
@@ -141,7 +144,7 @@ Single Capitals as you type."
   (if (and (executable-find "wc")
            (> (string-to-number (shell-command-to-string (format "wc -l %s" (buffer-file-name))))
               5000))
-      (linum-mode -1)))
+      nil))
 
 (add-hook 'find-file-hook 'spacemacs/check-large-file)
 
@@ -159,12 +162,12 @@ Single Capitals as you type."
               (set (make-local-variable 'electric-pair-mode) nil)))
 
 ;; http://trey-jackson.blogspot.com/2010/04/emacs-tip-36-abort-minibuffer-when.html
-(defun Benjamin/stop-using-minibuffer ()
+(defun benjaminhao/stop-using-minibuffer ()
   "kill the minibuffer"
   (when (and (>= (recursion-depth) 1) (active-minibuffer-window))
     (abort-recursive-edit)))
 
-(add-hook 'mouse-leave-buffer-hook 'Benjamin/stop-using-minibuffer)
+(add-hook 'mouse-leave-buffer-hook 'benjaminhao/stop-using-minibuffer)
 
 (setq tags-add-tables nil)
 

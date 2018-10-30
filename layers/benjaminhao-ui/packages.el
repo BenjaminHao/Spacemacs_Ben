@@ -1,30 +1,30 @@
-;;; packages.el --- zilong-ui layer packages file for Spacemacs.
+;;; packages.el --- BenjaminHao-ui layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2014-2016 Benjamin
+;; Copyright (c) 2016-2019 BenjaminHao
 ;;
-;; Author: Benjamin <haomingkai@gmail.com>
+;; Author: BenjaminHao <haomingkai@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
 
-(defconst Benjamin-ui-packages
+(defconst benjaminhao-ui-packages
   '(
-    (zilong-mode-line :location built-in)
+    ;; (zilong-mode-line :location built-in)
     diminish
     popwin
     (whitespace :location built-in)
     ;; hl-anything performance is very slow...
     ;; hl-anything
     ;; if you wnat to use spaceline, please comment out zilong-mode-line
-    ;; spaceline
+    spaceline
     ;; beacon
     ;; evil-vimish-fold
     )
   )
 
-(defun Benjamin-ui/init-zilong-mode-line ()
-  (defun Benjamin/display-mode-indent-width ()
+(defun benjaminhao-ui/init-zilong-mode-line ()
+  (defun benjaminhao/display-mode-indent-width ()
     (let ((mode-indent-level
            (catch 'break
              (dolist (test spacemacs--indent-variable-alist)
@@ -42,8 +42,8 @@
                        (throw 'break (symbol-value v))))))))
              (throw 'break (default-value 'evil-shift-width)))))
       (concat "TS:" (int-to-string (or mode-indent-level 0)))))
-
-  (setq my-flycheck-mode-line
+  ;; This variable is not working in emacs 26.1+, change back to spaceline.
+ (setq my-flycheck-mode-line
         '(:eval
           (pcase flycheck-last-status-change
             ((\` not-checked) nil)
@@ -73,7 +73,7 @@
                           'face
                           'font-lock-type-face))
                  " "
-                 '(:eval (Benjamin/update-persp-name))
+                 '(:eval (benjaminhao/update-persp-name))
 
                  "%1 "
                  ;; the buffer name; the file name as a tool tip
@@ -138,7 +138,7 @@
 
                  (mode-line-fill 'mode-line 20)
 
-                 '(:eval (Benjamin/display-mode-indent-width))
+                 '(:eval (benjaminhao/display-mode-indent-width))
                  ;; line and column
                  " (" ;; '%02' to set to 2 chars at least; prevents flickering
                  (propertize "%02l" 'face 'font-lock-type-face) ","
@@ -155,7 +155,7 @@
                  ;;                             (emacs-uptime "Uptime:%hh"))))
                  )))
 
-(defun Benjamin-ui/post-init-diminish ()
+(defun benjaminhao-ui/post-init-diminish ()
   (progn
     (with-eval-after-load 'whitespace
       (diminish 'whitespace-mode))
@@ -167,7 +167,7 @@
       (diminish 'hungry-delete-mode))))
 
 
-(defun Benjamin-ui/post-init-spaceline ()
+(defun benjaminhao-ui/post-init-spaceline ()
   (use-package spaceline-config
     :config
     (progn
@@ -179,7 +179,6 @@
                                 "Show information about the current org clock task.  Configure
 `spaceline-org-clock-format-function' to configure. Requires a currently running
 org clock.
-
 This segment overrides the modeline functionality of `org-mode-line-string'."
                                 (when (and (fboundp 'org-clocking-p)
                                            (org-clocking-p))
@@ -212,10 +211,10 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
        '((version-control :when active)
          battery))
 
-      (setq-default mode-line-format '("%e" (:eval (spaceline-ml-zilong))))
+         (setq-default mode-line-format '("%e" (:eval (spaceline-ml-zilong))))
       )))
 
-(defun Benjamin-ui/init-beacon ()
+(defun benjaminhao-ui/init-beacon ()
   (use-package beacon
     :init
     (progn
@@ -229,7 +228,7 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
       (spacemacs/toggle-beacon-on))
     :config (spacemacs|hide-lighter beacon-mode)))
 
-(defun Benjamin-ui/init-evil-vimish-fold ()
+(defun benjaminhao-ui/init-evil-vimish-fold ()
   (use-package evil-vimish-fold
     :init
     (vimish-fold-global-mode 1)
@@ -240,7 +239,7 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
       (define-key evil-normal-state-map (kbd "zd") 'vimish-fold-delete)
       (define-key evil-normal-state-map (kbd "za") 'vimish-fold-toggle))))
 
-(defun Benjamin-ui/post-init-hl-anything ()
+(defun benjaminhao-ui/post-init-hl-anything ()
   (progn
     (defun my-inhibit-globalized-hl-highlight-mode ()
       "Counter-act a globalized hl-highlight-mode."
@@ -255,7 +254,7 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
       :documentation "Toggle highlight anything mode."
       :evil-leader "ths")))
 
-(defun Benjamin-ui/post-init-pangu-spacing ()
+(defun benjaminhao-ui/post-init-pangu-spacing ()
   (progn
     ;; add toggle options
     (spacemacs|add-toggle toggle-pangu-spaceing
@@ -266,14 +265,14 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
       :evil-leader "ots")
     (add-hook 'markdown-mode-hook
               #'(lambda ()
-                 (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))))
+                  (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))))
 
-(defun Benjamin-ui/post-init-popwin ()
+(defun benjaminhao-ui/post-init-popwin ()
   (progn
-    (push "*Benjamin/run-current-file output*" popwin:special-display-config)
+    (push "*benjaminhao/run-current-file output*" popwin:special-display-config)
     (delete "*Async Shell Command*" popwin:special-display-config)))
 
-(defun Benjamin-ui/post-init-whitespace ()
+(defun benjaminhao-ui/post-init-whitespace ()
   (progn
     ;; ;; http://emacsredux.com/blog/2013/05/31/highlight-lines-that-exceed-a-certain-length-limit/
     (setq whitespace-line-column fill-column) ;; limit line length

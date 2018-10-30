@@ -1,8 +1,8 @@
-;;; config.el --- Benjamin Layer packages File for Spacemacs
+;;; config.el --- Benjamin Hao Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2014-2016 Benjamin
+;; Copyright (c) 2016-2019 Benjamin Hao
 ;;
-;; Author: Benjamin <haomingkai@gmail.com>
+;; Author: Benjamin Hao <haomingkai@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -18,10 +18,10 @@
                                             ("8luv" "♥")
                                             ("8smly" "☺")
                                             ("8en" "@~english")
-                                            ("8zh" "@~chinese")
+                                            ("8cn" "@~chinese")
                                             ("8sp" "spacemacs")
                                             ;; email
-                                            ("8me" "haomingkai@gmail.com")
+                                            ("8em" "haomingkai@gmail.com")
 
                                             ;; computing tech
                                             ("8wp" "Wikipedia")
@@ -35,7 +35,7 @@
                                             ("82dx" "Cocos2D-X")
 
                                             ;; signature
-                                            ("8zl" "Benjamin")
+                                            ("8me" "Benjamin Hao")
                                             ;; emacs regex
                                             ("8d" "\\([0-9]+?\\)")
                                             ("8str" "\\([^\"]+?\\)\"")))

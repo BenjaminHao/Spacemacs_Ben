@@ -1,14 +1,14 @@
-;;; packages.el --- Benjamin Layer packages File for Spacemacs
+;;; packages.el --- BenjaminHao Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2014-2016 Benjamin
+;; Copyright (c) 2016-2019 benjaminhao
 ;;
-;; Author: Benjamin <haomingkai@gmail.com>
+;; Author: BenjaminHao <haomingkai@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
 
-(setq Benjamin-misc-packages
+(setq benjaminhao-misc-packages
       '(
         helm-github-stars
         helm
@@ -44,12 +44,12 @@
         browse-at-remote
         ))
 
-(defun Benjamin-misc/init-browse-at-remote ()
+(defun benjaminhao-misc/init-browse-at-remote ()
   (use-package browse-at-remote
     :defer t
     :init (spacemacs/set-leader-keys "gho" 'browse-at-remote)))
 
-(defun Benjamin-misc/init-highlight-global ()
+(defun benjaminhao-misc/init-highlight-global ()
   (use-package highlight-global
     :init
     (progn
@@ -61,14 +61,14 @@
           ('hi-pink . 0)
           ('hi-blue-b . 0))))))
 
-(defun Benjamin-misc/post-init-golden-ratio ()
+(defun benjaminhao-misc/post-init-golden-ratio ()
   (with-eval-after-load 'golden-ratio
     (dolist (mode '("dired-mode" "occur-mode"))
       (add-to-list 'golden-ratio-exclude-modes mode))
     (dolist (n '("COMMIT_EDITMSG"))
       (add-to-list 'golden-ratio-exclude-buffer-names n))))
 
-(defun Benjamin-misc/post-init-ranger ()
+(defun benjaminhao-misc/post-init-ranger ()
   ;; https://emacs-china.org/t/ranger-golden-ratio/964/2
   (defun my-ranger ()
     (interactive)
@@ -96,7 +96,7 @@
   (spacemacs/set-leader-keys "ar" 'my-ranger))
 
 ;; copy from spacemacs helm layer
-(defun Benjamin-misc/init-helm-ag ()
+(defun benjaminhao-misc/init-helm-ag ()
   (use-package helm-ag
     :defer t
     :init
@@ -405,13 +405,13 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (kbd "gr") 'helm-ag--update-save-results
         (kbd "q") 'quit-window))))
 
-(defun Benjamin-misc/post-init-hydra ()
+(defun benjaminhao-misc/post-init-hydra ()
   (progn
     (defhydra hydra-hotspots (:color blue)
       "Hotspots"
       ("b" blog-admin-start "blog")
       ("g" helm-github-stars "helm github stars")
-      ("r" Benjamin/run-current-file "run current file"))
+      ("r" benjaminhao/run-current-file "run current file"))
 
     (defhydra multiple-cursors-hydra (:hint nil)
       "
@@ -464,7 +464,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
     ))
 
-(defun Benjamin-misc/post-init-gist ()
+(defun benjaminhao-misc/post-init-gist ()
   (use-package gist
     :defer t
     :init
@@ -499,7 +499,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "." 'spacemacs/gist-list-mode-transient-state/body))
     ))
 
-(defun Benjamin-misc/init-peep-dired ()
+(defun benjaminhao-misc/init-peep-dired ()
   ;;preview files in dired
   (use-package peep-dired
     :defer t
@@ -509,13 +509,13 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
                 ("P" . peep-dired))))
 
 
-(defun Benjamin-misc/post-init-flyspell-correct ()
+(defun benjaminhao-misc/post-init-flyspell-correct ()
   (progn
     (with-eval-after-load 'flyspell
       (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-previous-word-generic))
     (setq flyspell-correct-interface 'flyspell-correct-ivy)))
 
-(defun Benjamin-misc/post-init-smartparens ()
+(defun benjaminhao-misc/post-init-smartparens ()
   (use-package smartparens
     :defer t
     :init
@@ -531,13 +531,13 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (kbd "(>") 'sp-backward-barf-sexp
         (kbd "(<") 'sp-backward-slurp-sexp))))
 
-(defun Benjamin-misc/init-tiny ()
+(defun benjaminhao-misc/init-tiny ()
   (use-package tiny
     :defer t
     :init
     (spacemacs/set-leader-keys "oe" 'tiny-expand)))
 
-(defun Benjamin-misc/post-init-helm ()
+(defun benjaminhao-misc/post-init-helm ()
   (with-eval-after-load 'helm
     (progn
       ;; limit max number of matches displayed for speed
@@ -550,19 +550,19 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       )
     ))
 
-(defun Benjamin-misc/init-helm-github-stars ()
+(defun benjaminhao-misc/init-helm-github-stars ()
   (use-package helm-github-stars
     :commands (helm-github-stars)
     :init
-    (setq helm-github-stars-username "Benjamin")))
+    (setq helm-github-stars-username "benjaminhao")))
 
 
 
 
-(defun Benjamin-misc/post-init-fcitx ()
+(defun benjaminhao-misc/post-init-fcitx ()
   (fcitx-aggressive-setup))
 
-(defun Benjamin-misc/post-init-command-log ()
+(defun benjaminhao-misc/post-init-command-log ()
   (with-eval-after-load 'global-command-log-mode
     (setq clm/log-command-exceptions* (append clm/log-command-exceptions*
                                               '(evil-next-visual-line
@@ -570,12 +570,12 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 
 
-(defun Benjamin-misc/init-litable ()
+(defun benjaminhao-misc/init-litable ()
   (use-package litable
     :init
     :defer t))
 
-(defun Benjamin-misc/init-osx-dictionary ()
+(defun benjaminhao-misc/init-osx-dictionary ()
   (use-package osx-dictionary
     :init
     (progn
@@ -585,7 +585,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       )))
 
 
-(defun Benjamin-misc/init-4clojure ()
+(defun benjaminhao-misc/init-4clojure ()
   (use-package 4clojure
     :init
     (progn
@@ -599,15 +599,15 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 
 
-(defun Benjamin-misc/post-init-avy ()
+(defun benjaminhao-misc/post-init-avy ()
   (progn
     (global-set-key (kbd "C-s-'") 'avy-goto-char-2)
     (global-set-key (kbd "M-'") 'avy-goto-char-2)))
 
-(defun Benjamin-misc/post-init-ace-window ()
+(defun benjaminhao-misc/post-init-ace-window ()
   (global-set-key (kbd "C-x C-o") #'ace-window))
 
-(defun Benjamin-misc/init-discover-my-major ()
+(defun benjaminhao-misc/init-discover-my-major ()
   (use-package discover-my-major
     :defer t
     :init
@@ -617,7 +617,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       )))
 
 
-(defun Benjamin-misc/post-init-elfeed ()
+(defun benjaminhao-misc/post-init-elfeed ()
   (use-package elfeed
     :init
     (global-set-key (kbd "C-x w") 'elfeed)
@@ -653,12 +653,12 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "G" 'elfeed-update
         "g" 'elfeed-search-update--force)
 
-      (defun zilong/elfeed-mark-all-as-read ()
+      (defun benjaminhao/elfeed-mark-all-as-read ()
         (interactive)
         (mark-whole-buffer)
         (elfeed-search-untag-all-unread))
 
-      (define-key elfeed-search-mode-map (kbd "R") 'zilong/elfeed-mark-all-as-read)
+      (define-key elfeed-search-mode-map (kbd "R") 'benjaminhao/elfeed-mark-all-as-read)
 
       (defadvice elfeed-show-yank (after elfeed-show-yank-to-kill-ring activate compile)
         "Insert the yanked text from x-selection to kill ring"
@@ -666,7 +666,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
       (ad-activate 'elfeed-show-yank))))
 
-(defun Benjamin-misc/post-init-evil ()
+(defun benjaminhao-misc/post-init-evil ()
   (progn
     (setcdr evil-insert-state-map nil)
     (define-key evil-insert-state-map [escape] 'evil-normal-state)
@@ -705,7 +705,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     (define-key evil-visual-state-map (kbd "y") 'my-evil-yank)
 
     (define-key evil-normal-state-map
-      (kbd "Y") 'Benjamin/yank-to-end-of-line)
+      (kbd "Y") 'benjaminhao/yank-to-end-of-line)
 
     ;; rebind g,k to gj and gk
     ;; (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
@@ -736,7 +736,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     (define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
     ;; (define-key evil-visual-state-map (kbd "x") 'er/expand-region)
     ;; (define-key evil-visual-state-map (kbd "X") 'er/contract-region)
-    (define-key evil-visual-state-map (kbd "C-r") 'Benjamin/evil-quick-replace)
+    (define-key evil-visual-state-map (kbd "C-r") 'benjaminhao/evil-quick-replace)
     (define-key evil-visual-state-map (kbd "mn") 'mc/mark-next-like-this)
     (define-key evil-visual-state-map (kbd "mp") 'mc/mark-previous-like-this)
     (define-key evil-visual-state-map (kbd "ma") 'mc/mark-all-like-this)
@@ -771,7 +771,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     (define-key evil-insert-state-map (kbd "C-z") 'evil-emacs-state)
     ;; This will break visual column edit
     ;; enable hybrid editing style
-    ;; (defadvice evil-insert-state (around Benjamin/holy-mode activate)
+    ;; (defadvice evil-insert-state (around benjaminhao/holy-mode activate)
     ;;   "Preparing the holy water flasks."
     ;;   (evil-emacs-state))
     ;; disable c-[ temporally
@@ -781,11 +781,11 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     ;; (define-key evil-emacs-state-map [escape] 'evil-normal-state)
     ))
 
-(defun Benjamin-misc/init-visual-regexp ()
+(defun benjaminhao-misc/init-visual-regexp ()
   (use-package visual-regexp
     :commands (vr/replace vr/query-replace)))
 
-(defun Benjamin-misc/init-visual-regexp-steroids ()
+(defun benjaminhao-misc/init-visual-regexp-steroids ()
   (use-package visual-regexp-steroids
     :commands (vr/select-replace vr/select-query-replace)
     :init
@@ -793,7 +793,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (define-key global-map (kbd "C-c r") 'vr/replace)
       (define-key global-map (kbd "C-c q") 'vr/query-replace))))
 
-(defun Benjamin-misc/init-multiple-cursors ()
+(defun benjaminhao-misc/init-multiple-cursors ()
   (use-package multiple-cursors
     :init
     (progn
@@ -828,7 +828,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     (setq mc/cmds-to-run-once
           '(
             counsel-M-x
-            Benjamin/my-mc-mark-next-like-this))
+            benjaminhao/my-mc-mark-next-like-this))
     (setq mc/cmds-to-run-for-all
           '(
             electric-newline-and-maybe-indent
@@ -866,7 +866,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
             orgtbl-hijacker-command-109))
     ))
 
-(defun Benjamin-misc/post-init-persp-mode ()
+(defun benjaminhao-misc/post-init-persp-mode ()
   (setq persp-kill-foreign-buffer-action 'kill)
   (setq persp-lighter nil)
   (when (fboundp 'spacemacs|define-custom-layout)
@@ -877,7 +877,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (split-window-right)
       (find-file "~/cocos2d-x/cocos/cocos2d.cpp"))))
 
-(defun Benjamin-misc/post-init-chinese-wbim ()
+(defun benjaminhao-misc/post-init-chinese-wbim ()
   (progn
     (bind-key* ";" 'chinese-wbim-insert-ascii)
     (setq chinese-wbim-punc-translate-p nil)
@@ -893,10 +893,10 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     ))
 
 
-(defun Benjamin-misc/post-init-evil-escape ()
+(defun benjaminhao-misc/post-init-evil-escape ()
   (setq evil-escape-delay 0.2))
 
-(defun Benjamin-misc/init-find-file-in-project ()
+(defun benjaminhao-misc/init-find-file-in-project ()
   (use-package find-file-in-project
     :defer t
     :config
@@ -930,7 +930,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 
 
-(defun Benjamin-misc/post-init-projectile ()
+(defun benjaminhao-misc/post-init-projectile ()
   (progn
     (with-eval-after-load 'projectile
       (progn
@@ -948,12 +948,12 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (if (projectile-project-p)
           (multi-occur (projectile-project-buffers) my-simple-todo-regex)
         (occur my-simple-todo-regex)))
-    (spacemacs/set-leader-keys "pf" 'Benjamin/open-file-with-projectile-or-counsel-git)
+    (spacemacs/set-leader-keys "pf" 'benjaminhao/open-file-with-projectile-or-counsel-git)
     (spacemacs/set-leader-keys "pt" 'my-simple-todo)))
 
 
 
-(defun Benjamin-misc/post-init-prodigy ()
+(defun benjaminhao-misc/post-init-prodigy ()
   (progn
     (prodigy-define-tag
       :name 'jekyll
@@ -982,7 +982,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       :name "Hexo Server"
       :command "hexo"
       :args '("server")
-      :cwd "~/4gamers.cn"
+      :cwd blog-admin-dir
       :tags '(hexo server)
       :kill-signal 'sigkill
       :kill-process-buffer-on-stop t)
@@ -991,7 +991,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       :name "Hexo Deploy"
       :command "hexo"
       :args '("deploy" "--generate")
-      :cwd "~/4gamers.cn"
+      :cwd blog-admin-dir
       :tags '(hexo deploy)
       :kill-signal 'sigkill
       :kill-process-buffer-on-stop t)
@@ -999,7 +999,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     (prodigy-define-service
       :name "Debug Fireball"
       :command "npm"
-      :args '("start" "--" "--nologin" "/Users/benjamin/Github/example-cases")
+      :args '("start" "--" "--nologin" "/Users/guanghui/Github/example-cases")
       :cwd "~/Github/fireball/"
       :tags '(work)
       :kill-signal 'sigkill
@@ -1016,14 +1016,14 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       :kill-process-buffer-on-stop t)
 
     (defun refresh-chrome-current-tab (beg end length-before)
-      (call-interactively 'Benjamin/browser-refresh--chrome-applescript))
+      (call-interactively 'benjaminhao/browser-refresh--chrome-applescript))
     ;; add watch for prodigy-view-mode buffer change event
     (add-hook 'prodigy-view-mode-hook
               #'(lambda() (set (make-local-variable 'after-change-functions) #'refresh-chrome-current-tab)))
 
     ))
 
-(defun Benjamin-misc/init-moz-controller ()
+(defun benjaminhao-misc/init-moz-controller ()
   (use-package moz-controller
     :init
     (progn
@@ -1031,16 +1031,16 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (spacemacs|hide-lighter moz-controller-mode))))
 
 
-(defun Benjamin-misc/init-ag ()
+(defun benjaminhao-misc/init-ag ()
   (use-package ag
     :init))
 
-(defun Benjamin-misc/post-init-erc ()
+(defun benjaminhao-misc/post-init-erc ()
   (progn
     (add-hook 'erc-text-matched-hook 'my-erc-hook)
     (spaceline-toggle-erc-track-off)))
 
-(defun Benjamin-misc/init-wrap-region ()
+(defun benjaminhao-misc/init-wrap-region ()
   (use-package wrap-region
     :init
     (progn
@@ -1060,14 +1060,14 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 
 
-(defun Benjamin-misc/init-keyfreq ()
+(defun benjaminhao-misc/init-keyfreq ()
   (use-package keyfreq
     :init
     (progn
       (keyfreq-mode t)
       (keyfreq-autosave-mode 1))))
 
-(defun Benjamin-misc/post-init-swiper ()
+(defun benjaminhao-misc/post-init-swiper ()
   "Initialize my package"
   (progn
     (setq ivy-use-virtual-buffers t)
@@ -1101,20 +1101,20 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         ;;   (spacemacs/set-leader-keys "sp" 'counsel-git-grep)
         ;;   (spacemacs/set-leader-keys "sP" 'spacemacs/counsel-git-grep-region-or-symbol))
         (define-key ivy-minibuffer-map (kbd "C-c o") 'ivy-occur)
-        (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-call)
-        (define-key ivy-minibuffer-map (kbd "C-s-m") 'ivy-partial-or-done)
+        ;; (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-call)
+        ;; (define-key ivy-minibuffer-map (kbd "C-s-m") 'ivy-partial-or-done)
         (define-key ivy-minibuffer-map (kbd "C-c s") 'ivy-ff-checksum)
         (define-key ivy-minibuffer-map (kbd "s-o") 'ivy-dispatching-done-hydra)
         (define-key ivy-minibuffer-map (kbd "C-c C-e") 'spacemacs//counsel-edit)
         (define-key ivy-minibuffer-map (kbd "<f3>") 'ivy-occur)
-        (define-key ivy-minibuffer-map (kbd "C-s-j") 'ivy-immediate-done)
+        (define-key ivy-minibuffer-map (kbd "C-c j") 'ivy-immediate-done)
         (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
         (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)))
 
     (define-key global-map (kbd "C-s") 'my-swiper-search)))
 
 
-(defun Benjamin-misc/post-init-magit ()
+(defun benjaminhao-misc/post-init-magit ()
   (progn
     (with-eval-after-load 'magit
       (progn
@@ -1139,18 +1139,18 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
     (eval-after-load 'magit
       '(define-key magit-mode-map (kbd "C-c g")
-         #'Benjamin/magit-visit-pull-request))
+         #'benjaminhao/magit-visit-pull-request))
 
     (setq magit-process-popup-time 10)))
 
-(defun Benjamin-misc/post-init-git-messenger ()
+(defun benjaminhao-misc/post-init-git-messenger ()
   (use-package git-messenger
     :defer t
     :config
     (progn
-      (define-key git-messenger-map (kbd "f") 'zilong/github-browse-commit))))
+      (define-key git-messenger-map (kbd "f") 'benjaminhao/github-browse-commit))))
 
-(defun Benjamin-misc/post-init-markdown-mode ()
+(defun benjaminhao-misc/post-init-markdown-mode ()
   (progn
     (add-to-list 'auto-mode-alist '("\\.mdown\\'" . markdown-mode))
 
@@ -1160,9 +1160,9 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         ;;   (spacemacs|add-company-hook markdown-mode))
 
         (spacemacs/set-leader-keys-for-major-mode 'gfm-mode-map
-          "p" 'Benjamin/markdown-to-html)
+          "p" 'benjaminhao/markdown-to-html)
         (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-          "p" 'Benjamin/markdown-to-html)
+          "p" 'benjaminhao/markdown-to-html)
 
         (evil-define-key 'normal markdown-mode-map (kbd "TAB") 'markdown-cycle)
         ))

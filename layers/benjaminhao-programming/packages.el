@@ -1,8 +1,8 @@
-;;; packages.el --- Benjamin Layer packages File for Spacemacs
+;;; packages.el --- BenjaminHao Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2014-2016 Benjamin
+;; Copyright (c) 2014-2016 BenjaminHao
 ;;
-;; Author: Benjamin <haomingkai@gmail.com>
+;; Author: BenjaminHao <haomingkai@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -11,7 +11,7 @@
 ;; List of all packages to install and/or initialize. Built-in packages
 ;; which require an initialization must be listed explicitly in the list.
 
-(setq Benjamin-programming-packages
+(setq benjaminhao-programming-packages
       '(
         css-mode
         paredit
@@ -31,7 +31,7 @@
         lua-mode
         (cc-mode :location built-in)
         ;; flycheck-clojure
-        etags-select
+        ;; etags-select
         (python :location built-in)
         (emacs-lisp :location built-in)
         ;; clojure-mode
@@ -44,10 +44,10 @@
         robe
         ))
 
-(defun Benjamin-programming/post-init-robe ()
+(defun benjaminhao-programming/post-init-robe ()
   (progn
     (add-hook 'inf-ruby-mode-hook 'spacemacs/toggle-auto-completion-on)
-    (defun Benjamin/ruby-send-current-line (&optional print)
+    (defun benjaminhao/ruby-send-current-line (&optional print)
       "Send the current line to the inferior Ruby process."
       (interactive "P")
       (ruby-send-region
@@ -55,12 +55,12 @@
        (line-end-position))
       (when print (ruby-print-result)))
 
-    (defun Benjamin/ruby-send-current-line-and-go ()
+    (defun benjaminhao/ruby-send-current-line-and-go ()
       (interactive)
-      (Benjamin/ruby-send-current-line)
+      (benjaminhao/ruby-send-current-line)
       (ruby-switch-to-inf t))
 
-    (defun Benjamin/start-inf-ruby-and-robe ()
+    (defun benjaminhao/start-inf-ruby-and-robe ()
       (interactive)
       (when (not (get-buffer "*ruby*"))
         (inf-ruby))
@@ -70,27 +70,27 @@
       (spacemacs/set-leader-keys-for-major-mode mode
         "sb" 'ruby-send-block
         "sB" 'ruby-send-buffer
-        "sl" 'Benjamin/ruby-send-current-line
-        "sL" 'Benjamin/ruby-send-current-line-and-go
-        "sI" 'Benjamin/start-inf-ruby-and-robe))))
+        "sl" 'benjaminhao/ruby-send-current-line
+        "sL" 'benjaminhao/ruby-send-current-line-and-go
+        "sI" 'benjaminhao/start-inf-ruby-and-robe))))
 
-(defun Benjamin-programming/init-editorconfig ()
+(defun benjaminhao-programming/init-editorconfig ()
   (use-package editorconfig
     :init
     (progn
       (defun conditional-enable-editorconfig ()
-        (if (and (Benjamin/git-project-root)
+        (if (and (benjaminhao/git-project-root)
                  (locate-dominating-file default-directory ".editorconfig"))
             (editorconfig-apply)))
       (add-hook 'prog-mode-hook 'conditional-enable-editorconfig))))
 
-(defun Benjamin-programming/post-init-cider ()
+(defun benjaminhao-programming/post-init-cider ()
   (setq cider-cljs-lein-repl
         "(do (require 'figwheel-sidecar.repl-api)
            (figwheel-sidecar.repl-api/start-figwheel!)
            (figwheel-sidecar.repl-api/cljs-repl))")
 
-  (defun Benjamin/cider-figwheel-repl ()
+  (defun benjaminhao/cider-figwheel-repl ()
     (interactive)
     (save-some-buffers)
     (with-current-buffer (cider-current-repl-buffer)
@@ -100,14 +100,14 @@
              (figwheel-sidecar.repl-api/cljs-repl)")
       (cider-repl-return)))
 
-  (global-set-key (kbd "C-c C-f") #'Benjamin/cider-figwheel-repl))
+  (global-set-key (kbd "C-c C-f") #'benjaminhao/cider-figwheel-repl))
 
-(defun Benjamin-programming/post-init-graphviz-dot-mode ()
+(defun benjaminhao-programming/post-init-graphviz-dot-mode ()
   (with-eval-after-load 'graphviz-dot-mode
       (require 'company-keywords)
       (push '(graphviz-dot-mode  "digraph" "node" "shape" "subgraph" "label" "edge" "bgcolor" "style" "record") company-keywords-alist)))
 
-(defun Benjamin-programming/post-init-dumb-jump ()
+(defun benjaminhao-programming/post-init-dumb-jump ()
   (setq dumb-jump-selector 'ivy)
   (defun my-dumb-jump ()
     (interactive)
@@ -115,27 +115,27 @@
     (dumb-jump-go))
   (global-set-key (kbd "C-s-g") 'my-dumb-jump))
 
-(defun Benjamin-programming/post-init-clojure-mode ()
+(defun benjaminhao-programming/post-init-clojure-mode ()
   )
 
-(defun Benjamin-programming/post-init-emacs-lisp ()
+(defun benjaminhao-programming/post-init-emacs-lisp ()
     (remove-hook 'emacs-lisp-mode-hook 'auto-compile-mode))
 
-(defun Benjamin-programming/post-init-python ()
+(defun benjaminhao-programming/post-init-python ()
   (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   ;; if you use pyton3, then you could comment the following line
   (setq python-shell-interpreter "python"))
 
-(defun Benjamin-programming/post-init-js-doc ()
+(defun benjaminhao-programming/post-init-js-doc ()
   (setq js-doc-mail-address "haomingkai@gmail.com"
         js-doc-author (format "Benjamin Hao <%s>" js-doc-mail-address)
-        ;;js-doc-url "http://www.Benjamin.com"
+        js-doc-url "http://benjaminhao.me"
         js-doc-license "MIT")
 
   )
 
 
-(defun Benjamin-programming/init-ctags-update ()
+(defun benjaminhao-programming/init-ctags-update ()
   (use-package ctags-update
     :init
     :defer t
@@ -143,7 +143,7 @@
     (spacemacs|hide-lighter ctags-auto-update-mode)))
 
 ;; nodejs-repl is much better now.
-;; (defun Benjamin-programming/init-js-comint ()
+;; (defun benjaminhao-programming/init-js-comint ()
 ;;   (use-package js-comint
 ;;     :init
 ;;     (progn
@@ -159,7 +159,7 @@
 ;;                  (replace-regexp-in-string "\033\\[[0-9]+[GKJ]" "" output)))))
 ;;       (setq inferior-js-program-command "node"))))
 
-(defun Benjamin-programming/post-init-web-mode ()
+(defun benjaminhao-programming/post-init-web-mode ()
   (with-eval-after-load "web-mode"
     (web-mode-toggle-current-element-highlight)
     (web-mode-dom-errors-show))
@@ -170,7 +170,7 @@
 
 
 
-(defun Benjamin-programming/post-init-yasnippet ()
+(defun benjaminhao-programming/post-init-yasnippet ()
   (progn
     (set-face-background 'secondary-selection "gray")
     (setq-default yas-prompt-functions '(yas-ido-prompt yas-dropdown-prompt))
@@ -178,12 +178,12 @@
                                                                       org-mode-hook
                                                                       markdown-mode-hook))
 
-    (spacemacs/add-to-hooks 'Benjamin/load-yasnippet '(prog-mode-hook
+    (spacemacs/add-to-hooks 'benjaminhao/load-yasnippet '(prog-mode-hook
                                                             markdown-mode-hook
                                                             org-mode-hook))
     ))
 
-(defun Benjamin-programming/post-init-racket-mode ()
+(defun benjaminhao-programming/post-init-racket-mode ()
   (progn
     (eval-after-load 'racket-repl-mode
       '(progn
@@ -195,7 +195,7 @@
     ;; (add-hook 'racket-repl-mode-hook #'(lambda () (smartparens-mode t)))
     ))
 
-(defun Benjamin-programming/post-init-json-mode ()
+(defun benjaminhao-programming/post-init-json-mode ()
   (add-to-list 'auto-mode-alist '("\\.tern-project\\'" . json-mode))
   (add-to-list 'auto-mode-alist '("\\.fire\\'" . json-mode))
   (add-to-list 'auto-mode-alist '("\\.fire.meta\\'" . json-mode))
@@ -203,15 +203,15 @@
     "ti" 'my-toggle-web-indent))
 
 
-(defun Benjamin-programming/init-nodejs-repl ()
+(defun benjaminhao-programming/init-nodejs-repl ()
   (use-package nodejs-repl
     :init
     :defer t))
 
-(defun Benjamin-programming/init-flycheck-package ()
+(defun benjaminhao-programming/init-flycheck-package ()
   (use-package flycheck-package))
 
-(defun Benjamin-programming/init-lispy ()
+(defun benjaminhao-programming/init-lispy ()
   (use-package lispy
     :defer t
     :init
@@ -243,15 +243,15 @@
       (define-key lispy-mode-map (kbd "s-2") 'lispy-arglist-inline))))
 
 
-(defun Benjamin-programming/init-cmake-font-lock ()
+(defun benjaminhao-programming/init-cmake-font-lock ()
   (use-package cmake-font-lock
     :defer t))
 
-(defun Benjamin-programming/init-google-c-style ()
+(defun benjaminhao-programming/init-google-c-style ()
   (use-package google-c-style
     :init (add-hook 'c-mode-common-hook 'google-set-c-style)))
 
-(defun Benjamin-programming/post-init-cmake-mode ()
+(defun benjaminhao-programming/post-init-cmake-mode ()
   (progn
     (spacemacs/declare-prefix-for-mode 'cmake-mode
                                        "mh" "docs")
@@ -260,24 +260,24 @@
     (add-hook 'cmake-mode-hook (function cmake-rename-buffer))))
 
 
-(defun Benjamin-programming/post-init-flycheck ()
+(defun benjaminhao-programming/post-init-flycheck ()
   (with-eval-after-load 'flycheck
     (progn
       (setq flycheck-display-errors-delay 0.9)
       (setq flycheck-idle-change-delay 2.0)
       )))
 
-(defun Benjamin-programming/post-init-eldoc ()
+(defun benjaminhao-programming/post-init-eldoc ()
   (setq eldoc-idle-delay 0.4))
 
 
-(defun Benjamin-programming/post-init-js2-refactor ()
+(defun benjaminhao-programming/post-init-js2-refactor ()
   (progn
     (spacemacs/set-leader-keys-for-major-mode 'js2-mode
       "r>" 'js2r-forward-slurp
       "r<" 'js2r-forward-barf)))
 
-(defun Benjamin-programming/post-init-js2-mode ()
+(defun benjaminhao-programming/post-init-js2-mode ()
   (progn
     (add-hook 'js2-mode-hook 'my-setup-develop-environment)
     (add-hook 'web-mode-hook 'my-setup-develop-environment)
@@ -288,10 +288,6 @@
     (setq company-backends-js2-mode '((company-dabbrev-code :with company-keywords company-etags)
                                       company-files company-dabbrev))
 
-    (Benjamin|toggle-company-backends company-tern)
-
-    (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-      "tb" 'zilong/company-toggle-company-tern)
 
     (add-hook 'js2-mode-hook 'my-js2-mode-hook)
 
@@ -345,15 +341,13 @@
         (spacemacs/declare-prefix-for-mode 'css-mode "mt" "toggle")
 
 
-        (eval-after-load 'tern-mode
-          '(spacemacs|hide-lighter tern-mode))
         ))
 
     (evilified-state-evilify js2-error-buffer-mode js2-error-buffer-mode-map)
 
     ))
 
-(defun Benjamin-programming/post-init-css-mode ()
+(defun benjaminhao-programming/post-init-css-mode ()
   (progn
     (dolist (hook '(css-mode-hook sass-mode-hook less-mode-hook))
       (add-hook hook 'rainbow-mode))
@@ -366,12 +360,12 @@
               (lambda ()
                 (setq imenu-create-index-function 'css-imenu-make-index)))))
 
-(defun Benjamin-programming/post-init-tagedit ()
+(defun benjaminhao-programming/post-init-tagedit ()
   (add-hook 'web-mode-hook (lambda () (tagedit-mode 1))))
 
-;; For each extension, define a function Benjamin/init-<extension-name>
+;; For each extension, define a function benjaminhao/init-<extension-name>
 ;;
-(defun Benjamin-programming/init-doxymacs ()
+(defun benjaminhao-programming/init-doxymacs ()
   "Initialize doxymacs"
   (use-package doxymacs
     :init
@@ -382,7 +376,7 @@
       (spacemacs|hide-lighter doxymacs-mode))))
 
 ;; https://atlanis.net/blog/posts/nodejs-repl-eval.html
-(defun Benjamin-programming/init-nodejs-repl-eval ()
+(defun benjaminhao-programming/init-nodejs-repl-eval ()
   (use-package nodejs-repl-eval
     :commands (nodejs-repl-eval-buffer nodejs-repl-eval-dwim nodejs-repl-eval-function)
     :init
@@ -396,7 +390,7 @@
     :defer t
     ))
 
-(defun Benjamin-programming/post-init-lua-mode ()
+(defun benjaminhao-programming/post-init-lua-mode ()
   (progn
     (add-hook 'lua-mode-hook 'evil-matchit-mode)
     ;; (add-hook 'lua-mode-hook 'smartparens-mode)
@@ -415,7 +409,7 @@
 
     ))
 
-(defun Benjamin-programming/post-init-cc-mode ()
+(defun benjaminhao-programming/post-init-cc-mode ()
   (progn
     (setq company-backends-c-mode-common '((company-dabbrev-code :with company-keywords company-gtags company-etags)
                                            company-files company-dabbrev))
@@ -450,13 +444,13 @@
 
   )
 
-(defun Benjamin-programming/init-flycheck-clojure ()
+(defun benjaminhao-programming/init-flycheck-clojure ()
   (use-package flycheck-clojure
     :defer t
     :init
     (eval-after-load 'flycheck '(flycheck-clojure-setup))))
 
-(defun Benjamin-programming/post-init-ycmd ()
+(defun benjaminhao-programming/post-init-ycmd ()
   (progn
     (setq ycmd-tag-files 'auto)
     (setq ycmd-request-message-level -1)
@@ -467,17 +461,17 @@
                                             company-gtags :with company-yasnippet)
                                            company-files company-dabbrev ))
 
-    (Benjamin|toggle-company-backends company-ycmd)
+    (benjaminhao|toggle-company-backends company-ycmd)
     (eval-after-load 'ycmd
       '(spacemacs|hide-lighter ycmd-mode))
 
     (spacemacs/set-leader-keys-for-major-mode 'c-mode
-      "tb" 'zilong/company-toggle-company-ycmd)
+      "tb" 'benjaminhao/company-toggle-company-ycmd)
     (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-      "tb" 'zilong/company-toggle-company-ycmd)))
+      "tb" 'benjaminhao/company-toggle-company-ycmd)))
 
 ;; when many project has the need to use tags, I will give etags-table and etags-update a try
-(defun Benjamin-programming/init-etags-select ()
+(defun benjaminhao-programming/init-etags-select ()
   (use-package etags-select
     :init
     (progn
@@ -493,20 +487,20 @@
       (spacemacs/set-leader-keys-for-major-mode 'js2-mode
         "gd" 'etags-select-find-tag-at-point))))
 
-(defun Benjamin-programming/init-gulpjs ()
+(defun benjaminhao-programming/init-gulpjs ()
   (use-package gulpjs
     :init
     (progn
-      (defun zilong/build-engine ()
+      (defun benjaminhao/build-engine ()
         (interactive)
         (gulpjs-start-task-with-file-name "~/Github/fireball/app.js"))
 
       (spacemacs/set-leader-keys "ags" 'gulpjs-start-task)
-      (spacemacs/set-leader-keys "agS" 'zilong/build-engine)
+      (spacemacs/set-leader-keys "agS" 'benjaminhao/build-engine)
       (spacemacs/set-leader-keys "agr" 'gulpjs-restart-task))))
 
 
-(defun Benjamin-programming/init-paredit ()
+(defun benjaminhao-programming/init-paredit ()
   (use-package paredit
     :commands (paredit-wrap-round
                paredit-wrap-square
@@ -520,15 +514,15 @@
       (bind-key* "s-{" #'paredit-wrap-curly)
       )))
 
-(defun Benjamin-programming/post-init-company ()
+(defun benjaminhao-programming/post-init-company ()
   (progn
     (setq company-minimum-prefix-length 1
           company-idle-delay 0.08)
 
     (when (configuration-layer/package-usedp 'company)
-      (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode lua-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode))
+      (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode lua-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode js2-mode))
     ))
-(defun Benjamin-programming/post-init-company-c-headers ()
+(defun benjaminhao-programming/post-init-company-c-headers ()
   (progn
     (setq company-c-headers-path-system
           (quote

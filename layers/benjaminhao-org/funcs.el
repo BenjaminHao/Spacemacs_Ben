@@ -1,77 +1,28 @@
-;;; funcs.el --- Benjamin Layer packages File for Spacemacs
+;;; funcs.el --- BenjaminHao Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2016 Benjamin 
+;; Copyright (c) 2016-2019 BenjaminHao
 ;;
-;; Author: Benjamin <haomingkai@gmail.com>
+;; Author: BenjaminHao <haomingkai@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
 (require 'cl)
 
-(setq octopress-workdir (expand-file-name "~/4gamers.net/"))
-
-(defun Benjamin/octopress-rake (command)
-  "run rake commands"
-  (let ((command-str (format "/bin/bash -l -c 'source $HOME/.rvm/scripts/rvm && rvm use ruby 2.0.0  && cd %s && rake %s'" octopress-workdir command)))
-    (shell-command-to-string command-str)))
-
-(defun Benjamin/octopress-qrsync (command)
-  (let ((command-str (format "/usr/local/bin/qrsync %s" command )))
-    (shell-command-to-string command-str)))
-
-(defun Benjamin/octopress-generate ()
-  "generate jekyll site"
-  (interactive)
-  (Benjamin/octopress-rake "generate")
-  (message "Generate site OK"))
-
-(defun Benjamin/octopress-deploy ()
-  "default deploy task"
-  (interactive)
-  (Benjamin/octopress-rake "deploy")
-  (Benjamin/octopress-qrsync "/Users/benjamin/4gamers.net/json")
-  (message "Deploy site OK"))
-
-(defun Benjamin/octopress-gen-deploy ()
-  "generate website and deploy"
-  (interactive)
-  (Benjamin/octopress-rake "gen_deploy")
-  (Benjamin/octopress-qrsync "/Users/benjamin/4gamers.net/benjamin.json")
-  (message "Generate and Deploy OK"))
-
-(defun Benjamin/octopress-upimg ()
-  (interactive)
-  (Benjamin/octopress-qrsync "/Users/benjamin/4gamers.net/bejamin.json")
-  (message "Up Img to Qiniu"))
-
-(defun Benjamin/directory-parent (directory)
+(defun benjaminhao/directory-parent (directory)
   (let ((parent (file-name-directory (directory-file-name directory))))
     (if (not (equal directory parent))
         parent)))
 
-(defun Benjamin/jekyll-serve ()
-  (interactive)
-  (let* ((default-directory
-           (if (string-match "_posts/$" default-directory)
-               (Benjamin/directory-parent (zilongshanren/directory-parent default-directory))
-             (Benjamin/directory-parent default-directory)))
-         (buffer (if (get-buffer "*jekyll*")
-                     (switch-to-buffer "*jekyll*")
-                   (ansi-term "/bin/zsh" "jekyll")))
-         (proc (get-buffer-process buffer)))
-    (term-send-string proc "rake generate && rake preview\n")
-    (sit-for 4)
-    (browse-url "http://localhost:4000")))
 
 
 ;; Screenshot
-(defun Benjamin//insert-org-or-md-img-link (prefix imagename)
+(defun benjaminhao/insert-org-or-md-img-link (prefix imagename)
   (if (equal (file-name-extension (buffer-file-name)) "org")
       (insert (format "[[%s%s]]" prefix imagename))
     (insert (format "![%s](%s%s)" imagename prefix imagename))))
 
-(defun Benjamin/capture-screenshot (basename)
+(defun benjaminhao/capture-screenshot (basename)
   "Take a screenshot into a time stamped unique-named file in the
   same directory as the org-buffer/markdown-buffer and insert a link to this file."
   (interactive "sScreenshot name: ")
@@ -96,13 +47,13 @@
             (progn
               (setq resize-command-str (format "convert %s -resize 800x600 %s" final-image-full-path final-image-full-path))
               (shell-command-to-string resize-command-str)))
-        (Benjamin//insert-org-or-md-img-link "../img/" relativepath))
+        (benjaminhao/insert-org-or-md-img-link "../img/" relativepath))
     (progn
       (call-process "screencapture" nil nil nil "-s" (concat basename ".png"))
-      (Benjamin//insert-org-or-md-img-link "./" (concat basename ".png"))))
+      (benjaminhao/insert-org-or-md-img-link "./" (concat basename ".png"))))
   (insert "\n"))
 
-(defun Benjamin/org-archive-done-tasks ()
+(defun benjaminhao/org-archive-done-tasks ()
   (interactive)
   (org-map-entries
    (lambda ()
@@ -110,7 +61,7 @@
      (setq org-map-continue-from (outline-previous-heading)))
    "/DONE" 'file))
 
-(defun Benjamin/org-archive-cancel-tasks ()
+(defun benjaminhao/org-archive-cancel-tasks ()
   (interactive)
   (org-map-entries
    (lambda ()
@@ -119,7 +70,7 @@
    "/CANCELLED" 'file))
 
 ;; "https://github.com/vhallac/.emacs.d/blob/master/config/customize-org-agenda.el"
-(defun Benjamin/skip-non-stuck-projects ()
+(defun benjaminhao/skip-non-stuck-projects ()
   "Skip trees that are not stuck projects"
   (bh/list-sublevels-for-projects-indented)
   (save-restriction
@@ -141,7 +92,7 @@
               nil)) ; a stuck project, has subtasks but no next task
         next-headline))))
 
-(defun Benjamin/org-insert-src-block (src-code-type)
+(defun benjaminhao/org-insert-src-block (src-code-type)
   "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
   (interactive
    (let ((src-code-types
@@ -186,16 +137,16 @@
     (org-reset-subtask-state-maybe)
     (org-update-statistics-cookies t)))
 
-(defun zilong/org-summary-todo (n-done n-not-done)
+(defun benjaminhao/org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
   (let (org-log-done org-log-states)    ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
-(defun zilong/filter-by-tags ()
+(defun benjaminhao/filter-by-tags ()
   (let ((head-tags (org-get-tags-at)))
     (member current-tag head-tags)))
 
-(defun zilong/org-clock-sum-today-by-tags (timerange &optional tstart tend noinsert)
+(defun benjaminhao/org-clock-sum-today-by-tags (timerange &optional tstart tend noinsert)
   (interactive "P")
   (let* ((timerange-numeric-value (prefix-numeric-value timerange))
          (files (org-add-archive-files (org-agenda-files)))
@@ -217,7 +168,7 @@
                                 (error "No such file %s" file)))
       (with-current-buffer org-agenda-buffer
         (dolist (current-tag include-tags)
-          (org-clock-sum tstart tend 'zilong/filter-by-tags)
+          (org-clock-sum tstart tend 'benjaminhao/filter-by-tags)
           (setcdr (assoc current-tag tags-time-alist)
                   (+ org-clock-file-total-minutes (cdr (assoc current-tag tags-time-alist)))))))
     (while (setq item (pop tags-time-alist))

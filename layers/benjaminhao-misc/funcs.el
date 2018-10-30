@@ -1,8 +1,8 @@
-;;; funcs.el --- Benjamin Layer packages File for Spacemacs
+;;; funcs.el --- BenjaminHao Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2016 Benjamin 
+;; Copyright (c) 2015-2016 BenjaminHao
 ;;
-;; Author: Benjamin <haomingkai@gmail.com>
+;; Author: BenjaminHao <haomingkai@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -18,13 +18,13 @@
 
 
 ;; insert ; at the end of current line
-(defun Benjamin/insert-semicolon-at-the-end-of-this-line ()
+(defun benjaminhao/insert-semicolon-at-the-end-of-this-line ()
   (interactive)
   (save-excursion
     (end-of-line)
     (insert ";")))
 
-(defun Benjamin/delete-semicolon-at-the-end-of-this-line ()
+(defun benjaminhao/delete-semicolon-at-the-end-of-this-line ()
   (interactive)
   (save-excursion
     (end-of-line)
@@ -33,13 +33,13 @@
           (backward-char)
           (delete-char 1)))))
 
-(defun Benjamin/insert-comma-at-the-end-of-this-line ()
+(defun benjaminhao/insert-comma-at-the-end-of-this-line ()
   (interactive)
   (save-excursion
     (end-of-line)
     (insert ",")))
 
-(defun Benjamin/delete-comma-at-the-end-of-this-line ()
+(defun benjaminhao/delete-comma-at-the-end-of-this-line ()
   (interactive)
   (save-excursion
     (end-of-line)
@@ -49,13 +49,13 @@
           (delete-char 1)))))
 
 
-(defun Benjamin/load-my-layout ()
+(defun benjaminhao/load-my-layout ()
   (interactive)
-  (persp-load-state-from-file (concat persp-save-dir "zilong")))
+  (persp-load-state-from-file (concat persp-save-dir "benjamin")))
 
-(defun Benjamin/save-my-layout ()
+(defun benjaminhao/save-my-layout ()
   (interactive)
-  (persp-save-state-to-file (concat persp-save-dir "zilong")))
+  (persp-save-state-to-file (concat persp-save-dir "benjamin")))
 
 ;; http://blog.binchen.org/posts/use-ivy-mode-to-search-bash-history.html
 ;; ;FIXME: make it work with zsh
@@ -77,7 +77,7 @@
       (message "%s => kill-ring" val))))
 
   ;; my fix for tab indent
-(defun Benjamin/indent-region(numSpaces)
+(defun benjaminhao/indent-region(numSpaces)
   (progn
                                       ; default to start and end of current line
     (setq regionStart (line-beginning-position))
@@ -102,25 +102,25 @@
   )
 
 
-(defun Benjamin/tab-region (N)
+(defun benjaminhao/tab-region (N)
   (interactive "p")
   (if (use-region-p)
-      (Benjamin/indent-region 4)               ; region was selected, call indent-region
+      (benjaminhao/indent-region 4)               ; region was selected, call indent-region
     (insert "    ")                   ; else insert four spaces as expected
     ))
 
-(defun Benjamin/untab-region (N)
+(defun benjaminhao/untab-region (N)
   (interactive "p")
-  (Benjamin/indent-region -4))
+  (benjaminhao/indent-region -4))
 
-(defun Benjamin/hack-tab-key ()
+(defun benjaminhao/hack-tab-key ()
   (interactive)
-  (local-set-key (kbd "<tab>") 'Benjamin/tab-region)
-  (local-set-key (kbd "<S-tab>") 'Benjamin/untab-region)
+  (local-set-key (kbd "<tab>") 'benjaminhao/tab-region)
+  (local-set-key (kbd "<S-tab>") 'benjaminhao/untab-region)
   )
 
 ;; I'm don't like this settings too much.
-;; (add-hook 'prog-mode-hook 'Benjamin/hack-tab-key)
+;; (add-hook 'prog-mode-hook 'benjaminhao/hack-tab-key)
 (defun endless/fill-or-unfill ()
   "Like `fill-paragraph', but unfill if used twice."
   (interactive)
@@ -159,14 +159,14 @@
   (git-timemachine--start #'my-git-timemachine-show-selected-revision))
 
 
-(defun Benjamin/helm-hotspots ()
+(defun benjaminhao/helm-hotspots ()
   "helm interface to my hotspots, which includes my locations,
 org-files and bookmarks"
   (interactive)
   (helm :buffer "*helm: utities*"
-        :sources `(,(Benjamin//hotspots-sources))))
+        :sources `(,(benjaminhao//hotspots-sources))))
 
-(defun Benjamin//hotspots-sources ()
+(defun benjaminhao//hotspots-sources ()
   "Construct the helm sources for my hotspots"
   `((name . "Mail and News")
     (candidates . (("Calendar" . (lambda ()  (browse-url "https://www.google.com/calendar/render")))
@@ -174,26 +174,26 @@ org-files and bookmarks"
                    ("Blog" . blog-admin-start)
                    ("Github" . (lambda() (helm-github-stars)))
                    ("Calculator" . (lambda () (helm-calcul-expression)))
-                   ("Run current flie" . (lambda () (Benjamin/run-current-file)))
+                   ("Run current flie" . (lambda () (benjaminhao/run-current-file)))
                    ("Agenda" . (lambda () (org-agenda "" "a")))
                    ("sicp" . (lambda() (browse-url "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start")))))
     (candidate-number-limit)
     (action . (("Open" . (lambda (x) (funcall x)))))))
 
 ;; insert date and time
-(defun Benjamin/now ()
+(defun benjaminhao/now ()
   "Insert string for the current time formatted like '2:34 PM'."
   (interactive)                 ; permit invocation in minibuffer
   (insert (format-time-string "%D %-I:%M %p")))
 
-(defun Benjamin/today ()
+(defun benjaminhao/today ()
   "Insert string for today's date nicely formatted in American style,
 e.g. Sunday, September 17, 2000."
   (interactive)                 ; permit invocation in minibuffer
   (insert (format-time-string "%A, %B %e, %Y")))
 
 ;; https://github.com/syohex/emacs-browser-refresh/blob/master/browser-refresh.el
-(defun Benjamin/browser-refresh--chrome-applescript ()
+(defun benjaminhao/browser-refresh--chrome-applescript ()
   (interactive)
   (do-applescript
    (format
@@ -221,9 +221,9 @@ e.g. Sunday, September 17, 2000."
   :group 'shadowsocks-proxy)
 
 
-(defun Benjamin/open-file-with-projectile-or-counsel-git ()
+(defun benjaminhao/open-file-with-projectile-or-counsel-git ()
   (interactive)
-  (if (Benjamin/git-project-root)
+  (if (benjaminhao/git-project-root)
       (counsel-git)
     (if (projectile-project-p)
         (projectile-find-file)
@@ -231,7 +231,7 @@ e.g. Sunday, September 17, 2000."
 
 
 ;; http://blog.lojic.com/2009/08/06/send-growl-notifications-from-carbon-emacs-on-osx/
-(defun Benjamin/growl-notification (title message &optional sticky)
+(defun benjaminhao/growl-notification (title message &optional sticky)
   "Send a Growl notification"
   (do-applescript
    (format "tell application \"GrowlHelperApp\" \n
@@ -242,18 +242,18 @@ e.g. Sunday, September 17, 2000."
            message
            (if sticky "yes" "no"))))
 
-(defun Benjamin/growl-timer (minutes message)
+(defun benjaminhao/growl-timer (minutes message)
   "Issue a Growl notification after specified minutes"
   (interactive (list (read-from-minibuffer "Minutes: " "10")
                      (read-from-minibuffer "Message: " "Reminder") ))
   (run-at-time (* (string-to-number minutes) 60)
                nil
                (lambda (minute message)
-                 (Benjamin/growl-notification "Emacs Reminder" message t))
+                 (benjaminhao/growl-notification "Emacs Reminder" message t))
                minutes
                message))
 
-(defun Benjamin/goto-match-paren (arg)
+(defun benjaminhao/goto-match-paren (arg)
   "Go to the matching  if on (){}[], similar to vi style of % "
   (interactive "p")
   ;; first, check for "outside of bracket" positions expected by forward-sexp, etc
@@ -264,24 +264,24 @@ e.g. Sunday, September 17, 2000."
         ((looking-back "[\[\(\{]" 1) (backward-char) (evil-jump-item))
         (t nil)))
 
-(defun Benjamin/hidden-dos-eol ()
+(defun benjaminhao/hidden-dos-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
   (interactive)
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
 
-(defun Benjamin/remove-dos-eol ()
+(defun benjaminhao/remove-dos-eol ()
   "Replace DOS eolns CR LF with Unix eolns CR"
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\r" nil t) (replace-match "")))
 
-(defun Benjamin/insert-chrome-current-tab-url()
+(defun benjaminhao/insert-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
   (interactive)
-  (insert (Benjamin/retrieve-chrome-current-tab-url)))
+  (insert (benjaminhao/retrieve-chrome-current-tab-url)))
 
-(defun Benjamin/retrieve-chrome-current-tab-url()
+(defun benjaminhao/retrieve-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
   (interactive)
   (let ((result (do-applescript
@@ -299,7 +299,7 @@ e.g. Sunday, September 17, 2000."
 
 
 ;; remove all the duplicated emplies in current buffer
-(defun Benjamin/single-lines-only ()
+(defun benjaminhao/single-lines-only ()
   "replace multiple blank lines with a single one"
   (interactive)
   (goto-char (point-min))
@@ -308,12 +308,12 @@ e.g. Sunday, September 17, 2000."
     (forward-char 1)))
 
 ;; for running long run ansi-term
-(defun Benjamin/named-term (name)
+(defun benjaminhao/named-term (name)
   (interactive "sName: ")
   (ansi-term "/bin/zsh" name))
 
 
-(defun Benjamin/ash-term-hooks ()
+(defun benjaminhao/ash-term-hooks ()
   ;; dabbrev-expand in term
   (define-key term-raw-escape-map "/"
     (lambda ()
@@ -328,7 +328,7 @@ e.g. Sunday, September 17, 2000."
       (interactive)
       (term-send-raw-string (current-kill 0)))))
 
-(defun Benjamin/terminal ()
+(defun benjaminhao/terminal ()
   "Switch to terminal. Launch if nonexistent."
   (interactive)
   (if (get-buffer "*ansi-term*")
@@ -338,7 +338,7 @@ e.g. Sunday, September 17, 2000."
       (ansi-term "/bin/zsh")))
   (get-buffer-process "*ansi-term*"))
 
-(defalias 'tt 'Benjamin/terminal)
+(defalias 'tt 'benjaminhao/terminal)
 
 ;;add count for chinese, mainly used for writing chinese blog post
 ;; http://kuanyui.github.io/2014/01/18/count-chinese-japanese-and-english-words-in-emacs/
@@ -349,7 +349,7 @@ e.g. Sunday, September 17, 2000."
 (defvar wc-regexp-english-word
   "[a-zA-Z0-9-]+")
 
-(defun Benjamin/word-count-for-chinese ()
+(defun benjaminhao/word-count-for-chinese ()
   "「較精確地」統計中/日/英文字數。
 - 文章中的註解不算在字數內。
 - 平假名與片假名亦包含在「中日文字數」內，每個平/片假名都算單獨一個字（但片假
@@ -397,7 +397,7 @@ e.g. Sunday, September 17, 2000."
              chinese-char chinese-char-and-punc english-word
              (+ chinese-char english-word)))))
 
-(defun Benjamin/evil-quick-replace (beg end )
+(defun benjaminhao/evil-quick-replace (beg end )
   (interactive "r")
   (when (evil-visual-state-p)
     (evil-exit-visual-state)
@@ -407,20 +407,20 @@ e.g. Sunday, September 17, 2000."
           (lambda () (backward-char 2))
         (evil-ex command-string)))))
 
-(defun Benjamin/git-project-root ()
+(defun benjaminhao/git-project-root ()
   "Return the project root for current buffer."
   (let ((directory default-directory))
     (locate-dominating-file directory ".git")))
 
 
 ;; "http://xuchunyang.me/Opening-iTerm-From-an-Emacs-Buffer/"
-(defun Benjamin/iterm-shell-command (command &optional prefix)
+(defun benjaminhao/iterm-shell-command (command &optional prefix)
   "cd to `default-directory' then run COMMAND in iTerm.
 With PREFIX, cd to project root."
   (interactive (list (read-shell-command
                       "iTerm Shell Command: ")
                      current-prefix-arg))
-  (let* ((dir (if prefix (Benjamin/git-project-root)
+  (let* ((dir (if prefix (benjaminhao/git-project-root)
                 default-directory))
          ;; if COMMAND is empty, just change directory
          (cmd (format "cd %s ;%s" dir command)))
@@ -441,7 +441,7 @@ With PREFIX, cd to project root."
 (defadvice persp-switch (after my-quit-helm-perspectives activate)
   (setq hydra-deactivate t))
 
-(defun Benjamin/my-mc-mark-next-like-this ()
+(defun benjaminhao/my-mc-mark-next-like-this ()
   (interactive)
   (if (region-active-p)
       (mc/mark-next-like-this 1)
@@ -462,7 +462,7 @@ With PREFIX, cd to project root."
 (defun my-erc-hook (match-type nick message)
   "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
   (unless (posix-string-match "^\\** *Users on #" message)
-    (Benjamin/growl-notification
+    (benjaminhao/growl-notification
      (concat "ERC: : " (buffer-name (current-buffer)))
      message
      t
@@ -502,7 +502,7 @@ With PREFIX, cd to project root."
 (defun my-open-file-in-external-app (file)
   "Open file in external application."
   (interactive)
-  (let ((default-directory (Benjamin/git-project-root))
+  (let ((default-directory (benjaminhao/git-project-root))
         (file-path file))
     (if file-path
         (cond
@@ -548,7 +548,7 @@ With PREFIX, cd to project root."
               :action 'my-find-file-in-git-repo
               :caller 'counsel-find-file-recent-directory)))
 
-(defun Benjamin/magit-visit-pull-request ()
+(defun benjaminhao/magit-visit-pull-request ()
   "Visit the current branch's PR on GitHub."
   (interactive)
   (let ((remote-branch (magit-get-current-branch)))
@@ -565,7 +565,7 @@ With PREFIX, cd to project root."
                            "url"))
                remote-branch))))))
 
-(defun Benjamin/markdown-to-html ()
+(defun benjaminhao/markdown-to-html ()
   (interactive)
   (start-process "grip" "*gfm-to-html*" "grip" (buffer-file-name) "5000")
   (browse-url (format "http://localhost:5000/%s.%s" (file-name-base) (file-name-extension (buffer-file-name)))))
@@ -580,7 +580,7 @@ Error out if this isn't a GitHub repo."
     (when (and url (string-match "github.com:?/?\\(.*\\)" url))
       (replace-regexp-in-string "\\.git$" "" (match-string 1 url)))))
 
-(defun zilong/github-browse-commit ()
+(defun benjaminhao/github-browse-commit ()
   "Show the GitHub page for the current commit."
   (interactive)
   (let* ((commit git-messenger:last-commit-id)
@@ -591,16 +591,16 @@ Error out if this isn't a GitHub repo."
     (browse-url url)
     (git-messenger:popup-close)))
 
-(defun Benjamin/search-in-fireball ()
+(defun benjaminhao/search-in-fireball ()
   (interactive)
   (helm-do-ag (expand-file-name "~/Github/fireball/")))
 
 
-(defun Benjamin/show-current-buffer-major-mode ()
+(defun benjaminhao/show-current-buffer-major-mode ()
   (interactive)
   (describe-variable 'major-mode))
 
-(defun Benjamin/counsel-imenu ()
+(defun benjaminhao/counsel-imenu ()
   (interactive)
   (counsel-imenu)
   (evil-set-jump))

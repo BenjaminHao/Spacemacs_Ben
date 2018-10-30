@@ -10,9 +10,9 @@
 ;;; License: GPLv3
 
 (configuration-layer/declare-layers '(
-                                      Benjamin-misc
-                                      Benjamin-programming
-                                      Benjamin-ui
-                                      Benjamin-org
-                                      Benjamin-better-defaults
+                                      benjaminhao-misc
+                                      benjaminhao-programming
+                                      benjaminhao-ui
+                                      benjaminhao-org
+                                      benjaminhao-better-defaults
                                       ))

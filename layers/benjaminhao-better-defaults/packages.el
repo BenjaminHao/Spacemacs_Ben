@@ -1,15 +1,15 @@
 ; -*- lexical-binding: t -*-
-;;; packages.el --- Benjamin Layer packages File for Spacemacs
+;;; packages.el --- BenjaminHao Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2014-2016 Benjamin
+;; Copyright (c) 2016-2019 BenjaminHao
 ;;
-;; Author: Benjamin <haomingkai@gmail.com>
+;; Author: BenjaminHao <haomingkai@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
 
-(defconst Benjamin-better-defaults-packages
+(defconst benjaminhao-better-defaults-packages
   '(
     (dired-mode :location built-in)
     (profiler :location built-in)
@@ -17,7 +17,7 @@
     )
 )
 
-(defun Benjamin-better-defaults/post-init-recentf ()
+(defun benjaminhao-better-defaults/post-init-recentf ()
   (progn
     (setq recentf-exclude
           '("COMMIT_MSG"
@@ -40,7 +40,7 @@
             ".*png$"))
     (setq recentf-max-saved-items 2048)))
 
-(defun Benjamin-better-defaults/init-dired-mode ()
+(defun benjaminhao-better-defaults/init-dired-mode ()
   (use-package dired-mode
     :defer t
     :init
@@ -98,7 +98,7 @@
       (evilified-state-evilify-map dired-mode-map
         :mode dired-mode
         :bindings
-        (kbd "C-k") 'Benjamin/dired-up-directory
+        (kbd "C-k") 'benjaminhao/dired-up-directory
         "<RET>" 'dired-find-alternate-file
         "E" 'dired-toggle-read-only
         "C" 'dired-do-copy
@@ -109,12 +109,12 @@
         "z" 'dired-get-size
         "c" 'dired-copy-file-here
         "J" 'counsel-find-file
-        "f" 'Benjamin/open-file-with-projectile-or-counsel-git
+        "f" 'benjaminhao/open-file-with-projectile-or-counsel-git
         ")" 'dired-omit-mode)
       )))
 
 
-(defun Benjamin-better-defaults/init-profiler ()
+(defun benjaminhao-better-defaults/init-profiler ()
   (use-package profiler
     :init
     (evilified-state-evilify profiler-report-mode profiler-report-mode-map)))

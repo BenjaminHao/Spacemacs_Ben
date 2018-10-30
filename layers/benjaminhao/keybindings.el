@@ -1,9 +1,8 @@
-;;; keybindings.el --- Benjamin Layer packages File for Spacemacs
+;;; keybindings.el --- BenjaminHao Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2016 Benjamin
+;; Copyright (c) 2016-2019 BenjaminHao
 ;;
-;; Author: Benjamin <guanghui8827@gmail.com>
-;; URL: https://github.com/Benjamin/spacemacs-private
+;; Author: BenjaminHao <haomingkai@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -17,13 +16,13 @@
 (define-key 'help-command (kbd "C-l") 'find-library)
 (define-key 'help-command (kbd "C-i") 'info-display-manual)
 
-(global-set-key [(shift return)] 'Benjamin/smart-open-line)
+(global-set-key [(shift return)] 'benjaminhao/smart-open-line)
 (global-set-key (kbd "s-/") 'hippie-expand)
 (global-set-key (kbd "C-c a") 'org-agenda)
-;;(define-key global-map (kbd "C-c y") 'youdao-dictionary-search-at-point+)
+(define-key global-map (kbd "C-c y") 'youdao-dictionary-search-at-point+)
 (define-key global-map (kbd "<f9>") 'org-capture)
 (define-key global-map (kbd "C-c t") 'org-capture)
-(define-key global-map (kbd "<f8>") 'Benjamin/show-current-buffer-major-mode)
+(define-key global-map (kbd "<f8>") 'benjaminhao/show-current-buffer-major-mode)
 
 (global-set-key (kbd "C-c b") 'org-iswitchb)
 (global-set-key (kbd "C-c i e") 'spacemacs/auto-yasnippet-expand)
@@ -44,37 +43,37 @@
 (global-set-key (kbd "s-l") 'goto-line)
 ;; (global-set-key (kbd "s-s") 'save-buffer)
 (global-set-key (kbd "C-`") 'toggle-input-method)
-(global-set-key (kbd "s-d") 'Benjamin/my-mc-mark-next-like-this)
+(global-set-key (kbd "s-d") 'benjaminhao/my-mc-mark-next-like-this)
 (bind-key* "s-r" 'mc/reverse-regions)
-(global-set-key (kbd "<f5>") 'Benjamin/run-current-file)
+(global-set-key (kbd "<f5>") 'benjaminhao/run-current-file)
 
 ;; "http://endlessparentheses.com/transposing-keybinds-in-emacs.html?source=rss"
 ;; (global-set-key "\C-t" #'transpose-lines)
 ;; (define-key ctl-x-map "\C-t" #'transpose-chars)
 
 (when (spacemacs/system-is-mac)
- 	(spacemacs/set-leader-keys "o!" 'Benjamin/iterm-shell-command))
+ (spacemacs/set-leader-keys "o!" 'benjaminhao/iterm-shell-command))
 
 (spacemacs|add-toggle toggle-shadowsocks-proxy-mode
-  										:status shadowsocks-proxy-mode
-  										:on (global-shadowsocks-proxy-mode)
-  										:off (global-shadowsocks-proxy-mode -1)
-  										:documentation "Toggle shadowsocks proxy mode."
-  										:evil-leader "ots")
+  :status shadowsocks-proxy-mode
+  :on (global-shadowsocks-proxy-mode)
+  :off (global-shadowsocks-proxy-mode -1)
+  :documentation "Toggle shadowsocks proxy mode."
+  :evil-leader "ots")
 
 (global-set-key (kbd "s-s") 'save-buffer)
 ;; (bind-key* "s-k" 'scroll-other-window-down)
 ;; (bind-key* "s-j"  'scroll-other-window)
 (bind-key* "C-c /" 'company-files)
-;; (bind-key* "s-r" 'Benjamin/browser-refresh--chrome-applescript)
-(bind-key* "s-;" 'Benjamin/insert-semicolon-at-the-end-of-this-line)
-(bind-key* "C-s-;" 'Benjamin/delete-semicolon-at-the-end-of-this-line)
-(bind-key* "s-," 'Benjamin/insert-comma-at-the-end-of-this-line)
-;; (bind-key* "C-s-," 'Benjamin/delete-comma-at-the-end-of-this-line)
-(bind-key* "C-c l" 'Benjamin/insert-chrome-current-tab-url)
+;; (bind-key* "s-r" 'benjaminhao/browser-refresh--chrome-applescript)
+(bind-key* "s-;" 'benjaminhao/insert-semicolon-at-the-end-of-this-line)
+(bind-key* "C-s-;" 'benjaminhao/delete-semicolon-at-the-end-of-this-line)
+(bind-key* "s-," 'benjaminhao/insert-comma-at-the-end-of-this-line)
+;; (bind-key* "C-s-," 'benjaminhao/delete-comma-at-the-end-of-this-line)
+(bind-key* "C-c l" 'benjaminhao/insert-chrome-current-tab-url)
 ;; (bind-key* "M-s o" 'occur-dwim)
 (bind-key* "C-=" 'er/expand-region)
-(bind-key* "M--" 'Benjamin/goto-match-paren)
+(bind-key* "M--" 'benjaminhao/goto-match-paren)
 (bind-key* "C-c k" 'which-key-show-top-level)
 (bind-key* "s-y" 'aya-expand)
 ;; (bind-key* "C-l" 'recenter)
@@ -84,36 +83,36 @@
 (defun bb/define-key (keymap &rest bindings)
   (declare (indent 1))
   (while bindings
-    		 (define-key keymap (pop bindings) (pop bindings))))
+    (define-key keymap (pop bindings) (pop bindings))))
 
 (define-key evil-normal-state-map (kbd "-") nil)
 
 (bb/define-key evil-normal-state-map
-  						 "+" 'evil-numbers/inc-at-pt
-  						 "-" 'evil-numbers/dec-at-pt
-  						 "\\" 'evil-repeat-find-char-reverse
-  						 (kbd "DEL") 'evil-repeat-find-char-reverse
-  						 "[s" (lambda (n) (interactive "p") (dotimes (c n nil) (insert " ")))
-  						 "]s" (lambda (n) (interactive "p")
-         							(forward-char) (dotimes (c n nil) (insert " ")) (backward-char (1+ n))))
+  "+" 'evil-numbers/inc-at-pt
+  "-" 'evil-numbers/dec-at-pt
+  "\\" 'evil-repeat-find-char-reverse
+  (kbd "DEL") 'evil-repeat-find-char-reverse
+  "[s" (lambda (n) (interactive "p") (dotimes (c n nil) (insert " ")))
+  "]s" (lambda (n) (interactive "p")
+         (forward-char) (dotimes (c n nil) (insert " ")) (backward-char (1+ n))))
 
 (with-eval-after-load 'company
-  										(progn
-    										(bb/define-key company-active-map
-      																 (kbd "C-w") 'evil-delete-backward-word)
+  (progn
+    (bb/define-key company-active-map
+      (kbd "C-w") 'evil-delete-backward-word)
 
-    										(bb/define-key company-active-map
-      																 (kbd "s-w") 'company-show-location)))
+    (bb/define-key company-active-map
+      (kbd "s-w") 'company-show-location)))
 
 (spacemacs/declare-prefix "ot" "Toggle")
 
 
-(global-set-key (kbd "<f1>") 'Benjamin/helm-hotspots)
-(spacemacs/set-leader-keys "oo" 'Benjamin/helm-hotspots)
+(global-set-key (kbd "<f1>") 'benjaminhao/helm-hotspots)
+(spacemacs/set-leader-keys "oo" 'benjaminhao/helm-hotspots)
 
 (spacemacs/set-leader-keys "oc" 'my-auto-update-tags-when-save)
-;; (spacemacs/set-leader-keys "op" 'Benjamin/org-save-and-export)
-(spacemacs/set-leader-keys "fR" 'Benjamin/rename-file-and-buffer)
+;; (spacemacs/set-leader-keys "op" 'benjaminhao/org-save-and-export)
+(spacemacs/set-leader-keys "fR" 'benjaminhao/rename-file-and-buffer)
 
 ;;Must set key to nil to prevent error: Key sequence b m s starts with non-prefix key b m
 (spacemacs/set-leader-keys "bm" nil)
@@ -125,19 +124,19 @@
 (spacemacs/set-leader-keys "bmj" 'counsel-bookmark)
 
 (spacemacs/set-leader-keys "od" 'occur-dwim)
-(spacemacs/set-leader-keys "ox" 'org-open-at-point)
-(spacemacs/set-leader-keys "or" 'Benjamin/browser-refresh--chrome-applescript)
+(spacemacs/set-leader-keys "ox" 'org-open-at-point-global)
+(spacemacs/set-leader-keys "or" 'benjaminhao/browser-refresh--chrome-applescript)
 
 (spacemacs/set-leader-keys "rh" 'helm-resume)
 (spacemacs/set-leader-keys "sj" 'counsel-imenu)
 
 ;; ivy specific keybindings
 (if (configuration-layer/layer-usedp 'ivy)
-  (progn
-    (spacemacs/set-leader-keys "ff" 'counsel-find-file)
-    (spacemacs/set-leader-keys "fL" 'counsel-locate)
-    (spacemacs/set-leader-keys "hi" 'counsel-info-lookup-symbol)
-    (spacemacs/set-leader-keys "pb" 'projectile-switch-to-buffer)))
+    (progn
+      (spacemacs/set-leader-keys "ff" 'counsel-find-file)
+      (spacemacs/set-leader-keys "fL" 'counsel-locate)
+      (spacemacs/set-leader-keys "hi" 'counsel-info-lookup-symbol)
+      (spacemacs/set-leader-keys "pb" 'projectile-switch-to-buffer)))
 
 (spacemacs/set-leader-keys "en" 'flycheck-next-error)
 (spacemacs/set-leader-keys "ep" 'flycheck-previous-error)
@@ -146,21 +145,21 @@
 (spacemacs/set-leader-keys "gL" 'magit-log-buffer-file)
 (spacemacs/set-leader-keys "og" 'my-git-timemachine)
 
-(spacemacs/set-leader-keys "sj" 'Benjamin/counsel-imenu)
+(spacemacs/set-leader-keys "sj" 'benjaminhao/counsel-imenu)
 ;; deal with BOM
 (spacemacs/set-leader-keys "fl" 'find-file-literally-at-point)
 (spacemacs/set-leader-keys "ri" 'ivy-resume)
 (spacemacs/set-leader-keys "fh" 'ffap-hexl-mode)
 (spacemacs/set-leader-keys "fd" 'projectile-find-file-dwim-other-window)
 (spacemacs/set-leader-keys "nl" 'spacemacs/evil-search-clear-highlight)
-(spacemacs/set-leader-keys "oll" 'Benjamin/load-my-layout)
-(spacemacs/set-leader-keys "ols" 'Benjamin/save-my-layout)
+(spacemacs/set-leader-keys "oll" 'benjaminhao/load-my-layout)
+(spacemacs/set-leader-keys "ols" 'benjaminhao/save-my-layout)
 (spacemacs/set-leader-keys "ob" 'popwin:display-last-buffer)
-;;(spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
+(spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
 (spacemacs/set-leader-keys "bM" 'spacemacs/switch-to-messages-buffer)
 
 (bind-key* "s-p" 'find-file-in-project)
-(spacemacs/set-leader-keys "os" 'Benjamin/search-in-fireball)
+(spacemacs/set-leader-keys "os" 'benjaminhao/search-in-fireball)
 
 (spacemacs/set-leader-keys "pa" 'projectile-find-other-file)
 (spacemacs/set-leader-keys "pA" 'projectile-find-other-file-other-window)

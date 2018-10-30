@@ -1,8 +1,8 @@
-;;; config.el --- Benjamin Layer packages File for Spacemacs
+;;; config.el --- BenjaminHao Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2016 Benjamin
+;; Copyright (c) 2016-2019 BenjaminHao
 ;;
-;; Author: Benjamin <haomingkai@gmail.com>
+;; Author: BenjaminHao <haomingkai@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -15,7 +15,7 @@
   :documentation "Enable iimage mode"
   :evil-leader "oti")
 
-(add-hook 'term-mode-hook 'Benjamin/ash-term-hooks)
+(add-hook 'term-mode-hook 'benjaminhao/ash-term-hooks)
 
 
 ;; reformat your json file, it requires python
@@ -46,7 +46,7 @@
 
 
 ;; return nil to write content to file
-(defun Benjamin/untabify-buffer ()
+(defun benjaminhao/untabify-buffer ()
   (interactive)
   (save-excursion
     (untabify (point-min) (point-max)) nil))
@@ -54,7 +54,7 @@
 (add-hook 'c++-mode-hook
           #'(lambda ()
              (add-hook 'write-contents-hooks
-                       'Benjamin/untabify-buffer nil t)))
+                       'benjaminhao/untabify-buffer nil t)))
 
 (setq auto-mode-alist
       (append
@@ -62,9 +62,9 @@
        auto-mode-alist))
 
 
-(defmacro Benjamin|toggle-company-backends (backend)
+(defmacro benjaminhao|toggle-company-backends (backend)
   "Push or delete the backend to company-backends"
-  (let ((funsymbol (intern (format "zilong/company-toggle-%S" backend))))
+  (let ((funsymbol (intern (format "benjaminhao/company-toggle-%S" backend))))
     `(defun ,funsymbol ()
        (interactive)
        (if (eq (car company-backends) ',backend)

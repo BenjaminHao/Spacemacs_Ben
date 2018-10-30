@@ -1,8 +1,8 @@
-;;; packages.el --- zilong-ui layer packages file for Spacemacs.
+;;; packages.el --- BenjaminHao-ui layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2014-2016 Benjamin
+;; Copyright (c) 2016-2019 BenjaminHao
 ;;
-;; Author: Benjamin <haomingkai@gmail.com>
+;; Author: BenjaminHao <haomingkai@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -10,10 +10,10 @@
 
 ;;; Code:
 
-(defconst Benjamin-org-packages
+(defconst benjaminhao-org-packages
   '(
     (org :location built-in)
-    ;;org-mac-link
+    ;; org-mac-link
     org-pomodoro
     deft
     (blog-admin :location (recipe
@@ -27,7 +27,7 @@
     )
   )
 
-(defun Benjamin-org/init-blog-admin ()
+(defun benjaminhao-org/init-blog-admin ()
   (use-package blog-admin
     :defer t
     :commands blog-admin-start
@@ -42,20 +42,21 @@
       (add-hook 'blog-admin-backend-after-new-post-hook 'find-file)
       )))
 
-(defun Benjamin-org/post-init-org-pomodoro ()
+(defun benjaminhao-org/post-init-org-pomodoro ()
   (progn
-    (add-hook 'org-pomodoro-finished-hook '(lambda () (Benjamin/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
-    (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (Benjamin/growl-notification "Short Break" "🐝 Ready to Go?" t)))
-    (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (Benjamin/growl-notification "Long Break" " 💪 Ready to Go?" t)))
+    (add-hook 'org-pomodoro-finished-hook '(lambda () (benjaminhao/growl-notification "Pomodoro Finished" "☕️ Have a break!" t)))
+    (add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (benjaminhao/growl-notification "Short Break" "🐝 Ready to Go?" t)))
+    (add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (benjaminhao/growl-notification "Long Break" " 💪 Ready to Go?" t)))
     ))
 
 ;;In order to export pdf to support Chinese, I should install Latex at here: https://www.tug.org/mactex/
 ;; http://freizl.github.io/posts/2012-04-06-export-orgmode-file-in-Chinese.html
 ;;http://stackoverflow.com/questions/21005885/export-org-mode-code-block-and-result-with-different-styles
-(defun Benjamin-org/post-init-org ()
+(defun benjaminhao-org/post-init-org ()
   (add-hook 'org-mode-hook (lambda () (spacemacs/toggle-line-numbers-off)) 'append)
   (with-eval-after-load 'org
     (progn
+      
       (spacemacs|disable-company org-mode)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "," 'org-priority)
@@ -121,7 +122,7 @@
                                   ;; keybinding for editing source code blocks
                                   ;; keybinding for inserting code blocks
                                   (local-set-key (kbd "C-c i s")
-                                                 'Benjamin/org-insert-src-block)))
+                                                 'benjaminhao/org-insert-src-block)))
       (require 'ox-publish)
       (add-to-list 'org-latex-classes '("ctexart" "\\documentclass[11pt]{ctexart}
                                         [NO-DEFAULT-PACKAGES]
@@ -198,7 +199,7 @@
        'org-babel-load-languages
        '((perl . t)
          (ruby . t)
-         (sh . t)
+         (shell . t)
          (dot . t)
          (js . t)
          (latex .t)
@@ -256,7 +257,7 @@ unwanted space when exporting org-mode to html."
                "* TODO [#A] %?\n  %i\n %U"
                :empty-lines 1)
               ("c" "Chrome" entry (file+headline org-agenda-file-note "Quick notes")
-               "* TODO [#C] %?\n %(Benjamin/retrieve-chrome-current-tab-url)\n %i\n %U"
+               "* TODO [#C] %?\n %(benjaminhao/retrieve-chrome-current-tab-url)\n %i\n %U"
                :empty-lines 1)
               ("l" "links" entry (file+headline org-agenda-file-note "Quick notes")
                "* TODO [#C] %?\n  %i\n %a \n %U"
@@ -277,20 +278,20 @@ unwanted space when exporting org-mode to html."
               ("b" "Blog" tags-todo "BLOG")
               ("p" . "项目安排")
               ("pw" tags-todo "PROJECT+WORK+CATEGORY=\"cocos2d-x\"")
-              ("pl" tags-todo "PROJECT+DREAM+CATEGORY=\"Benjamin\"")
+              ("pl" tags-todo "PROJECT+DREAM+CATEGORY=\"benjaminhao\"")
               ("W" "Weekly Review"
                ((stuck "") ;; review stuck projects as designated by org-stuck-projects
                 (tags-todo "PROJECT") ;; review all projects (assuming you use todo keywords to designate projects)
                 ))))
 
-      (defvar Benjamin-website-html-preamble
+      (defvar benjaminhao-website-html-preamble
         "<div class='nav'>
 <ul>
-<li><a href='http://Benjamin.com'>博客</a></li>
+<li><a href='http://benjaminhao.com'>博客</a></li>
 <li><a href='/index.html'>Wiki目录</a></li>
 </ul>
 </div>")
-      (defvar Benjamin-website-html-blog-head
+      (defvar benjaminhao-website-html-blog-head
         " <link rel='stylesheet' href='css/site.css' type='text/css'/> \n
     <link rel=\"stylesheet\" type=\"text/css\" href=\"/css/worg.css\"/>")
       (setq org-publish-project-alist
@@ -301,15 +302,15 @@ unwanted space when exporting org-mode to html."
                :publishing-directory "~/org-notes/public_html/"
 
                :recursive t
-               :html-head , Benjamin-website-html-blog-head
+               :html-head , benjaminhao-website-html-blog-head
                :publishing-function org-html-publish-to-html
                :headline-levels 4       ; Just the default for this project.
                :auto-preamble t
                :exclude "gtd.org"
                :exclude-tags ("ol" "noexport")
                :section-numbers nil
-               :html-preamble ,Benjamin-website-html-preamble
-               :author "Benjamin"
+               :html-preamble ,benjaminhao-website-html-preamble
+               :author "Benjamin Hao"
                :email "haomingkai@gmail.com"
                :auto-sitemap t          ; Generate sitemap.org automagically...
                :sitemap-filename "index.org" ; ... call it sitemap.org (it's the default)...
@@ -328,8 +329,8 @@ unwanted space when exporting org-mode to html."
 
 
 
-      (add-hook 'org-after-todo-statistics-hook 'zilong/org-summary-todo)
-      ;; used by zilong/org-clock-sum-today-by-tags
+      (add-hook 'org-after-todo-statistics-hook 'benjaminhao/org-summary-todo)
+      ;; used by benjaminhao/org-clock-sum-today-by-tags
 
       (define-key org-mode-map (kbd "s-p") 'org-priority)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
@@ -417,44 +418,44 @@ holding contextual information."
 
       )))
 
-;;(defun Benjamin-org/init-org-mac-link ()
-;;  (use-package org-mac-link
-;;    :commands org-mac-grab-link
-;;    :init
-;;    (progn
-;;      (add-hook 'org-mode-hook
-;;                (lambda ()
-;;                  (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))))
-;;    :defer t))
+(defun benjaminhao-org/init-org-mac-link ()
+  (use-package org-mac-link
+    :commands org-mac-grab-link
+    :init
+    (progn
+      (add-hook 'org-mode-hook
+                (lambda ()
+                  (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))))
+    :defer t))
 
-(defun Benjamin-org/post-init-ox-reveal ()
+(defun benjaminhao-org/post-init-ox-reveal ()
   (setq org-reveal-root "file:///Users/benjamin/.emacs.d/reveal-js"))
 
 
-(defun Benjamin-org/init-org-tree-slide ()
+(defun benjaminhao-org/init-org-tree-slide ()
   (use-package org-tree-slide
     :init
     (spacemacs/set-leader-keys "oto" 'org-tree-slide-mode)))
 
 
-(defun Benjamin-org/init-org-download ()
+(defun benjaminhao-org/init-org-download ()
   (use-package org-download
     :defer t
     :init
     (org-download-enable)))
 
-(defun Benjamin-org/init-plain-org-wiki ()
+(defun benjaminhao-org/init-plain-org-wiki ()
   (use-package plain-org-wiki
     :init
     (setq pow-directory "~/org-notes")))
 
-(defun Benjamin-org/init-worf ()
+(defun benjaminhao-org/init-worf ()
   (use-package worf
     :defer t
     :init
     (add-hook 'org-mode-hook 'worf-mode)))
 
-(defun Benjamin-org/post-init-deft ()
+(defun benjaminhao-org/post-init-deft ()
   (progn
     (setq deft-use-filter-string-for-filename t)
     (setq deft-recursive t)

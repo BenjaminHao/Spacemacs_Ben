@@ -16,6 +16,7 @@
         css-mode
         paredit
         lispy
+        caps-lock
         cmake-font-lock
         cmake-mode
         flycheck
@@ -73,6 +74,12 @@
         "sl" 'benjaminhao/ruby-send-current-line
         "sL" 'benjaminhao/ruby-send-current-line-and-go
         "sI" 'benjaminhao/start-inf-ruby-and-robe))))
+
+(defun benjaminhao-programming/init-caps-lock ()
+  (use-package caps-lock
+    :init
+    (progn
+      (bind-key* "s-e" 'caps-lock-mode))))
 
 (defun benjaminhao-programming/init-editorconfig ()
   (use-package editorconfig

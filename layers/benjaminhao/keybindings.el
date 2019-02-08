@@ -15,6 +15,7 @@
 (define-key 'help-command (kbd "C-v") 'find-variable)
 (define-key 'help-command (kbd "C-l") 'find-library)
 (define-key 'help-command (kbd "C-i") 'info-display-manual)
+;; (define-key 'ivy-occur-grep-mode-map (kbd "C-d") 'evil-scroll-down)
 
 (global-set-key [(shift return)] 'benjaminhao/smart-open-line)
 (global-set-key (kbd "s-/") 'hippie-expand)
@@ -76,6 +77,11 @@
 (bind-key* "M--" 'benjaminhao/goto-match-paren)
 (bind-key* "C-c k" 'which-key-show-top-level)
 (bind-key* "s-y" 'aya-expand)
+(bind-key* "C-." 'benjaminhao/insert-space-after-point)
+(bind-key* "M-i" 'string-inflection-java-style-cycle)
+(bind-key* "M-u" 'dakra-upcase-dwim)
+(bind-key* "M-l" 'dakra-downcase-dwim)
+(bind-key* "M-c" 'dakra-capitalize-dwim)
 ;; (bind-key* "C-l" 'recenter)
 
 
@@ -95,6 +101,10 @@
   "[s" (lambda (n) (interactive "p") (dotimes (c n nil) (insert " ")))
   "]s" (lambda (n) (interactive "p")
          (forward-char) (dotimes (c n nil) (insert " ")) (backward-char (1+ n))))
+
+(bb/define-key ivy-occur-grep-mode-map
+  (kbd "C-d") 'evil-scroll-down
+  "d" 'ivy-occur-delete-candidate)
 
 (with-eval-after-load 'company
   (progn
@@ -159,11 +169,15 @@
 (spacemacs/set-leader-keys "bM" 'spacemacs/switch-to-messages-buffer)
 
 (bind-key* "s-p" 'find-file-in-project)
-(spacemacs/set-leader-keys "os" 'benjaminhao/search-in-fireball)
+(spacemacs/set-leader-keys "os" 'counsel-ag-thing-at-point)
 
 (spacemacs/set-leader-keys "pa" 'projectile-find-other-file)
 (spacemacs/set-leader-keys "pA" 'projectile-find-other-file-other-window)
 (spacemacs/set-leader-keys ":" 'counsel-M-x)
+
+;; highlight
+(spacemacs/set-leader-keys "hh" 'benjaminhao/highlight-dwim)
+(spacemacs/set-leader-keys "hc" 'benjaminhao/clearn-highlight)
 
 (when (spacemacs/system-is-mswindows)
   (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
@@ -171,6 +185,7 @@
   (global-set-key (kbd "s-0") 'spacemacs/reset-font-size)
   (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
   (global-set-key (kbd "s-v") 'yank)
+  (global-set-key (kbd "s-g") 'evil-avy-goto-char-2)
   (global-set-key (kbd "s-c") 'evil-yank)
   (global-set-key (kbd "s-a") 'mark-whole-buffer)
   (global-set-key (kbd "s-x") 'kill-region)

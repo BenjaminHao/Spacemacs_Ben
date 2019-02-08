@@ -31,7 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     (ivy :variables ivy-enable-advanced-buffer-information t)
+     (ivy :variables ivy-enable-advanced-buffer-information nil)
      better-defaults
      ranger
      colors
@@ -100,7 +100,7 @@ values."
                     evil-args evil-ediff evil-exchange evil-unimpaired
                     evil-indent-plus volatile-highlights smartparens
                     holy-mode skewer-mode rainbow-delimiters
-                    highlight-indentation vi-tilde-fringe eyebrowse
+                    highlight-indentation vi-tilde-fringe eyebrowse ws-butler
                     org-bullets smooth-scrolling org-repo-todo org-download org-timer
                     livid-mode git-gutter git-gutter-fringe  evil-escape
                     leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
@@ -110,7 +110,7 @@ values."
                     helm-flyspell flyspell-correct-helm clean-aindent-mode
                     helm-c-yasnippet ace-jump-helm-line helm-make magithub
                     helm-themes helm-swoop helm-spacemacs-help smeargle
-                    ido-vertical-mode flx-ido company-quickhelp
+                    ido-vertical-mode flx-ido company-quickhelp ivy-rich
                     window-purpose ivy-purpose helm-purpose spacemacs-purpose-popwin
                     )
    dotspacemacs-install-packages 'used-only
@@ -336,7 +336,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup 'changed))
+   dotspacemacs-whitespace-cleanup nil))
 
 (defun dotspacemacs/user-init ()
 ;;	(setq-default configuration-layer-elpa-archives
@@ -433,15 +433,23 @@ values."
   (setq inhibit-compacting-font-caches t)
   (global-display-line-numbers-mode -1)
 
-  (defun moon-override-yank-pop (&optional arg)
-    "Delete the region before inserting poped string."
-    (when (and evil-mode (eq 'visual evil-state))
-      (kill-region (region-beginning) (region-end))))
+ (defun moon-override-yank-pop (&optional arg)
+  "Delete the region before inserting poped string."
+  (when (and evil-mode (eq 'visual evil-state))
+    (kill-region (region-beginning) (region-end))))
 
-  (advice-add 'counsel-yank-pop :before #'moon-override-yank-pop)
+(advice-add 'counsel-yank-pop :before #'moon-override-yank-pop)
 
-  ;; (add-hook 'text-mode-hook 'spacemacs/toggle-spelling-checking-on)
-  )
+;; boost find file and load saved persp layout  performance
+;; which will break some function on windows platform
+;; eg. known issues: magit related buffer color, reopen will fix it
+(when (spacemacs/system-is-mswindows)
+  (progn (setq find-file-hook nil)
+         (add-hook 'find-file-hook 'spacemacs/check-large-file)
+         (add-hook 'projectile-mode-hook '(lambda () (remove-hook 'find-file-hook #'projectile-find-file-hook-function)))))
+
+;; (add-hook 'text-mode-hook 'spacemacs/toggle-spelling-checking-on)
+)
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file 'no-error 'no-message)
@@ -450,4 +458,4 @@ values."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-)
+  )

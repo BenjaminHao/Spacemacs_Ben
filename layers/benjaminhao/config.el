@@ -9,12 +9,12 @@
 
 (if (and (spacemacs/system-is-mswindows) window-system)
   (setq
- org-agenda-dir "f:/org-notes"
- deft-dir "f:/org-notes"
+ org-agenda-dir "f:/Org-Notes"
+ deft-dir "f:/Org-Notes"
  blog-admin-dir "f:/BenjaminHao.github.io")
   (setq
- org-agenda-dir "~/org-notes"
- deft-dir "~/org-notes"
+ org-agenda-dir "~/Org-Notes"
+ deft-dir "~/Org-Notes"
  blog-admin-dir "~/BenjaminHao.github.io"))
 
 

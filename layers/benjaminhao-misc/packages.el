@@ -130,6 +130,7 @@
         "Keymap automatically activated inside overlays.
 You can re-bind the commands to any keys you prefer.")
       ))
+)
 
 (defun benjaminhao-misc/post-init-golden-ratio ()
   (with-eval-after-load 'golden-ratio
